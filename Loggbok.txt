@@ -1,0 +1,6 @@
+2018-11-09
+
+9.00 Startade vi dagen
+Vi har installerat MariaDB på servern remotely och skapat
+våran databas design och lagt upp lite data i tabellerna.
+Vi har lagt upp projektet på Github och påbörjat REST API:et

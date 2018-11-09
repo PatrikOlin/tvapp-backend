@@ -1,4 +1,4 @@
-package com.tvapp;
+package com.tvapp.rest;
 
 import javax.persistence.*;
 
