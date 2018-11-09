@@ -8,3 +8,11 @@ ON f.favorites_user_id = u.user_id
 INNER JOIN series s
 ON f.favorites_series_id = s.series_id
 WHERE u.user_id = 1;
+
+
+
+
+
+127.28.120.173:3306
+patrik
+BLAJblaj
