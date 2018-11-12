@@ -25,7 +25,7 @@ public class SeriesController {
 
     @PostMapping("/series/search")
     public List<Series> search(@RequestBody Map<String, String> body) {
-        String searchTerm = body.get("text");
+        String searchTerm = body.get("searchQuery");
         return seriesRepository.findByNameContaining(searchTerm);
     }
 
