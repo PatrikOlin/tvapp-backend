@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SeriesRepository extends JpaRepository<Series, Integer> {
+public interface ShowRepository extends JpaRepository<Show, Integer> {
 
-    List<Series> findByNameContaining(String name);
+    Show findByName(String name);
+
+    List<Show> findByNameContaining(String name);
 }
