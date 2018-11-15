@@ -10,3 +10,9 @@ Vi har lagt upp projektet på Github och påbörjat REST API:et
 Har implementerat HATEOAS ( i alla fall på några av endpointsen..."
 Har börjat implementera basic authentication och BCrypt password-hantering i DB
 
+2018-11-15
+
+12:03
+Har ändrat mapp strukturen och ändra mappningen i repositories och lagt till base /api som bas uri
+för att kunna implementera swagger dokumentation.
+
