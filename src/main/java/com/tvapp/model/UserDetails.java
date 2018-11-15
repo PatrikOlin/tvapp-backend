@@ -1,4 +1,4 @@
-package com.tvapp.rest;
+package com.tvapp.model;
 
 
 import org.springframework.security.crypto.bcrypt.BCrypt;

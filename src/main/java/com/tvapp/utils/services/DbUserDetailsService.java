@@ -1,8 +1,8 @@
-package com.tvapp.rest.services;
+package com.tvapp.utils.services;
 
-import com.tvapp.rest.UserDetails;
-import com.tvapp.rest.UserNotFoundException;
-import com.tvapp.rest.UserRepository;
+import com.tvapp.model.UserDetails;
+import com.tvapp.utils.UserNotFoundException;
+import com.tvapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

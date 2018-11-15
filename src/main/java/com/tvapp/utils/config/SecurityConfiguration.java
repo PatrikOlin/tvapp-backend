@@ -1,6 +1,6 @@
-package com.tvapp.rest.config;
+package com.tvapp.utils.config;
 
-import com.tvapp.rest.services.DbUserDetailsService;
+import com.tvapp.utils.services.DbUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

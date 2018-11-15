@@ -1,4 +1,4 @@
-package com.tvapp.rest;
+package com.tvapp.utils;
 
 
 import org.springframework.http.HttpStatus;

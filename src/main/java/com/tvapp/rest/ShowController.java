@@ -1,5 +1,8 @@
 package com.tvapp.rest;
 
+import com.tvapp.model.Show;
+import com.tvapp.repository.ShowRepository;
+import com.tvapp.utils.ShowResourceAssembler;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
+@RequestMapping("/shows")
 public class ShowController {
 
   private final ShowRepository showRepository;
@@ -22,8 +26,8 @@ public class ShowController {
       this.assembler = assembler;
   }
 
-    @GetMapping("/shows")
-    Resources<Resource<Show>> all() {
+    @GetMapping
+    public Resources<Resource<Show>> all() {
       List<Resource<Show>> shows = showRepository.findAll().stream()
               .map(assembler::toResource)
               .collect(Collectors.toList());
@@ -32,27 +36,27 @@ public class ShowController {
               linkTo(methodOn(ShowController.class).all()).withSelfRel());
     }
 
-    @GetMapping("/shows/{name}")
-    Resource<Show> one(@PathVariable String name) {
+    @GetMapping("/{name}")
+    public Resource<Show> one(@PathVariable String name) {
 
       Show show = showRepository.findByName(name);
 
       return assembler.toResource(show);
     }
 
-    @PostMapping("/shows/search")
+    @PostMapping("/search")
     public List<Show> search(@RequestBody Map<String, String> body) {
         String searchTerm = body.get("searchQuery");
         return showRepository.findByNameContaining(searchTerm);
     }
 
-    @PostMapping("/shows")
+    @PostMapping
     public Show create(@RequestBody Map<String, String> body) {
         String name = body.get("name");
         return showRepository.save(new Show(name));
     }
 
-    @PutMapping("/shows/{id}")
+    @PutMapping("/{id}")
     public Show update(@PathVariable String id, @RequestBody Map<String, String> body) {
         int seriesId = Integer.parseInt(id);
         Show show = showRepository.findOne(seriesId);
@@ -60,7 +64,7 @@ public class ShowController {
         return showRepository.save(show);
     }
 
-    @DeleteMapping("/shows/{id}")
+    @DeleteMapping("/{id}")
     public boolean delete(@PathVariable String id) {
         int seriesId = Integer.parseInt(id);
         showRepository.delete(seriesId);

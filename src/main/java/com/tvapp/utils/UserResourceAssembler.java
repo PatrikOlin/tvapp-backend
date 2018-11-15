@@ -1,7 +1,10 @@
-package com.tvapp.rest;
+package com.tvapp.utils;
 
+import com.tvapp.model.UserDetails;
+import com.tvapp.rest.UserController;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -14,7 +17,7 @@ public class UserResourceAssembler implements ResourceAssembler<UserDetails, Res
     @Override
     public Resource<UserDetails> toResource(UserDetails userDetails) {
         return new Resource<>(userDetails,
-                linkTo(methodOn(UserController.class).one(userDetails.getEmail())).withSelfRel(),
+                ControllerLinkBuilder.linkTo(methodOn(UserController.class).one(userDetails.getEmail())).withSelfRel(),
                 linkTo(methodOn(UserController.class).all()).withRel("userDetails"));
     }
 }
