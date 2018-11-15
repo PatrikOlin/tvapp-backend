@@ -2,10 +2,10 @@ INSERT INTO favorites
 VALUE(2,2);
 
 SELECT u.user_email, s.series_name, s.series_thumbnail 
-FROM user u
+FROM userDetails u
 INNER JOIN favorites f
 ON f.favorites_user_id = u.user_id
-INNER JOIN series s
+INNER JOIN show s
 ON f.favorites_series_id = s.series_id
 WHERE u.user_id = 1;
 

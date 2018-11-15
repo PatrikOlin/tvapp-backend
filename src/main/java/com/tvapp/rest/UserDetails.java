@@ -1,10 +1,12 @@
 package com.tvapp.rest;
 
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,16 +19,17 @@ public class User {
     @Column(name = "user_email")
     private String email;
 
-    public User() {
+
+    public UserDetails() {
 
     }
 
-    public User(String email, String password) {
+    public UserDetails(String email, String password) {
         this.setEmail(email);
         this.setPassword(password);
     }
 
-    public User(int id, String email, String password) {
+    public UserDetails(int id, String email, String password) {
         this.setId(id);
         this.setEmail(email);
         this.setPassword(password);
@@ -45,7 +48,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public String getEmail() {
@@ -58,7 +61,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserDetails{" +
                 "id=" + id +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
