@@ -3,18 +3,18 @@ package com.tvapp.rest;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "series")
+@Table(name = "shows")
 public class Show {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "series_id")
+    @Column(name = "shows_id")
     private int id;
 
-    @Column(name = "series_name")
+    @Column(name = "shows_name")
     private String name;
 
-    @Column(name = "series_thumbnail")
+    @Column(name = "shows_thumbnail")
     @Lob
     private byte[] thumbnail;
 

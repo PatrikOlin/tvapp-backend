@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 public class MainApp extends SpringBootServletInitializer {
 
+
     public static void main(String[] args) {
         SpringApplication.run(MainApp.class, args);
     }
@@ -18,6 +19,5 @@ public class MainApp extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(MainApp.class);
     }
-
 
 }

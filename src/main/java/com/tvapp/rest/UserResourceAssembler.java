@@ -8,13 +8,13 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Component
-public class UserResourceAssembler implements ResourceAssembler<User, Resource<User>> {
+public class UserResourceAssembler implements ResourceAssembler<UserDetails, Resource<UserDetails>> {
 
 
     @Override
-    public Resource<User> toResource(User user) {
-        return new Resource<>(user,
-                linkTo(methodOn(UserController.class).one(user.getEmail())).withSelfRel(),
-                linkTo(methodOn(UserController.class).all()).withRel("user"));
+    public Resource<UserDetails> toResource(UserDetails userDetails) {
+        return new Resource<>(userDetails,
+                linkTo(methodOn(UserController.class).one(userDetails.getEmail())).withSelfRel(),
+                linkTo(methodOn(UserController.class).all()).withRel("userDetails"));
     }
 }
