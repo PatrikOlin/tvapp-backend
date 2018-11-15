@@ -16,3 +16,5 @@ Har börjat implementera basic authentication och BCrypt password-hantering i DB
 Har ändrat mapp strukturen och ändra mappningen i repositories och lagt till base /api som bas uri
 för att kunna implementera swagger dokumentation.
 
+15.22
+Fixade dokumentation för user controller på swagger ui. Lite finlir kvar
