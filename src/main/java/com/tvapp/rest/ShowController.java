@@ -1,6 +1,5 @@
 package com.tvapp.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.web.bind.annotation.*;

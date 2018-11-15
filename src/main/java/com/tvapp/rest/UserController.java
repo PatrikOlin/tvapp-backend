@@ -1,5 +1,6 @@
 package com.tvapp.rest;
 
+
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +20,15 @@ public class UserController {
 
     private final UserResourceAssembler assembler;
 
+
     UserController(UserRepository userRepository, UserResourceAssembler assembler) {
         this.userRepository = userRepository;
         this.assembler = assembler;
     }
 
     @GetMapping("/user")
-    Resources<Resource<User>> all() {
-        List<Resource<User>> users = userRepository.findAll().stream()
+    Resources<Resource<UserDetails>> all() {
+        List<Resource<UserDetails>> users = userRepository.findAll().stream()
                 .map(assembler::toResource)
                 .collect(Collectors.toList());
 
@@ -35,27 +37,28 @@ public class UserController {
     }
 
     @GetMapping("/user/{email}")
-    Resource<User> one(@PathVariable String email) {
+    Resource<UserDetails> one(@PathVariable String email) {
 
-        User user = userRepository.findByEmail(email);
+        UserDetails userDetails = userRepository.findByEmail(email);
 
-        return assembler.toResource(user);
+        return assembler.toResource(userDetails);
     }
 
     @PostMapping("/user")
-    public User create(@RequestBody Map<String, String> body) {
+    public UserDetails create(@RequestBody Map<String, String> body) {
         String email = body.get("email");
         String password = body.get("password");
-        return userRepository.save(new User(email, password));
+
+        return userRepository.save(new UserDetails(email, password));
     }
 
     @PutMapping("/user/{id}")
-    public User update(@PathVariable String id, @RequestBody Map<String, String> body) {
+    public UserDetails update(@PathVariable String id, @RequestBody Map<String, String> body) {
         int userId = Integer.parseInt(id);
-        User user = userRepository.findOne(userId);
-        user.setPassword(body.get("password"));
-        user.setEmail(body.get("email"));
-        return userRepository.save(user);
+        UserDetails userDetails = userRepository.findOne(userId);
+        userDetails.setPassword(body.get("password"));
+        userDetails.setEmail(body.get("email"));
+        return userRepository.save(userDetails);
     }
 
     @DeleteMapping("/user/{id}")
