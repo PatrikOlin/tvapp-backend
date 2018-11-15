@@ -1,32 +1,45 @@
 package com.tvapp.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 
 @RestController
 public class UserController {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final UserResourceAssembler assembler;
+
+    UserController(UserRepository userRepository, UserResourceAssembler assembler) {
+        this.userRepository = userRepository;
+        this.assembler = assembler;
+    }
 
     @GetMapping("/user")
-    public List<User> index() {
-        return userRepository.findAll();
+    Resources<Resource<User>> all() {
+        List<Resource<User>> users = userRepository.findAll().stream()
+                .map(assembler::toResource)
+                .collect(Collectors.toList());
+
+        return new Resources<>(users,
+                linkTo(methodOn(UserController.class).all()).withSelfRel());
     }
 
-    @GetMapping("/user/{id}")
-    public User show(@PathVariable String id) {
-        int userId = Integer.parseInt(id);
-        return userRepository.findOne(userId);
-    }
+    @GetMapping("/user/{email}")
+    Resource<User> one(@PathVariable String email) {
 
-    @PostMapping("/user/search")
-    public List<User> search(@RequestBody Map<String, String> body) {
-        String searchTerm = body.get("text");
-        return userRepository.findByEmailContaining(searchTerm);
+        User user = userRepository.findByEmail(email);
+
+        return assembler.toResource(user);
     }
 
     @PostMapping("/user")
