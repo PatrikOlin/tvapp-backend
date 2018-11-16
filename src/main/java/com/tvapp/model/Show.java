@@ -15,22 +15,29 @@ public class Show {
     private String name;
 
     @Column(name = "shows_thumbnail")
-    @Lob
-    private byte[] thumbnail;
+    private String imageUrl;
+
+    @Column(name = "shows_overview", length = 2000)
+    private String overView;
+
+    @Column(name = "shows_status")
+    private String status;
+
+
 
     public Show() {
 
     }
 
-    public Show(String name, byte[] thumbnail) {
+    public Show(String name, String imageUrl) {
         this.setName(name);
-        this.setThumbnail(thumbnail);
+        this.setImageUrl(imageUrl);
     }
 
-    public Show(int id, String name, byte[] thumbnail) {
+    public Show(int id, String name, String imageUrl) {
         this.setId(id);
         this.setName(name);
-        this.setThumbnail(thumbnail);
+        this.setImageUrl(imageUrl);
     }
 
     public Show(String name) {
@@ -53,12 +60,12 @@ public class Show {
         this.name = name;
     }
 
-    public byte[] getThumbnail() {
-        return thumbnail;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setThumbnail(byte[] thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
@@ -66,7 +73,7 @@ public class Show {
         return "Show{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", thumbnail=" + thumbnail +
+                ", imageUrl=" + imageUrl +
                 '}';
     }
 }

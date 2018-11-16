@@ -38,8 +38,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .apiInfo(apiInfo())
                 .pathMapping("/")
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex("/api.*"))
+                .apis(RequestHandlerSelectors.basePackage("com.tvapp.rest"))
+                .paths(regex("/user.*"))
                 .build();
     }
 
