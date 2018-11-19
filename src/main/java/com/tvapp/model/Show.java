@@ -11,14 +11,14 @@ public class Show {
     @Column(name = "shows_id")
     private int id;
 
-    @Column(name = "shows_name")
-    private String name;
+    @Column(name = "shows_title")
+    private String title;
 
     @Column(name = "shows_thumbnail")
     private String imageUrl;
 
     @Column(name = "shows_overview", length = 2000)
-    private String overView;
+    private String overview;
 
     @Column(name = "shows_status")
     private String status;
@@ -29,19 +29,27 @@ public class Show {
 
     }
 
-    public Show(String name, String imageUrl) {
-        this.setName(name);
+    public Show(String title, String imageUrl) {
+        this.setTitle(title);
         this.setImageUrl(imageUrl);
     }
 
-    public Show(int id, String name, String imageUrl) {
+    public Show(int id, String title, String imageUrl) {
         this.setId(id);
-        this.setName(name);
+        this.setTitle(title);
         this.setImageUrl(imageUrl);
     }
 
-    public Show(String name) {
-        this.setName(name);
+    public Show(String title, String imageUrl, String overview, String status) {
+        this.setTitle(title);
+        this.setImageUrl(imageUrl);
+        this.setOverview(overview);
+        this.setStatus(status);
+
+    }
+
+    public Show(String title) {
+        this.setTitle(title);
     }
 
     public int getId() {
@@ -52,12 +60,12 @@ public class Show {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getImageUrl() {
@@ -68,11 +76,27 @@ public class Show {
         this.imageUrl = imageUrl;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Show{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", imageUrl=" + imageUrl +
                 '}';
     }
