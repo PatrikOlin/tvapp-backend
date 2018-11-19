@@ -22,9 +22,9 @@ public class MainApp extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(MainApp.class, args);
 
-        Date date = new Date();
-        ShowDAO show = new ShowDAO();
-        show.getShow("walking dead");
+//        Date date = new Date();
+//        ShowDAO show = new ShowDAO();
+//        show.getShow("walking dead");
     }
 
     @Override
