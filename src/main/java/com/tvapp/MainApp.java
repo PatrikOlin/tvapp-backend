@@ -22,5 +22,4 @@ public class MainApp extends SpringBootServletInitializer {
         return application.sources(MainApp.class);
     }
 
-
 }

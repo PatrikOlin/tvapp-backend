@@ -1,5 +1,6 @@
 package com.tvapp.rest;
 
+import com.tvapp.dao.ShowDAO;
 import com.tvapp.model.Show;
 import com.tvapp.repository.ShowRepository;
 import com.tvapp.utils.ShowResourceAssembler;
@@ -21,6 +22,7 @@ public class ShowController {
 
   private final ShowRepository showRepository;
   private final ShowResourceAssembler assembler;
+  private ShowDAO dao = new ShowDAO();
 
   ShowController(ShowRepository showRepository, ShowResourceAssembler assembler) {
       this.showRepository = showRepository;
@@ -45,10 +47,11 @@ public class ShowController {
       return assembler.toResource(show);
     }
 
-    @PostMapping("/search")
-    public List<Show> search(@RequestBody Map<String, String> body) {
-        String searchTerm = body.get("searchQuery");
-        return showRepository.findByTitleContaining(searchTerm);
+    @GetMapping("/search")
+    public String search(@RequestParam Map<String, String> param) {
+        String searchTerm = param.get("searchQuery");
+        //return showRepository.findByNameContaining(searchTerm);
+        return dao.getShow(searchTerm);
     }
 
     @PostMapping
