@@ -1,9 +1,11 @@
 package com.tvapp.rest;
 
-import com.tvapp.dao.ShowDAO;
+import com.tvapp.dao.MovieDBDAO;
 import com.tvapp.themoviedb.Result;
 import com.tvapp.model.Show;
 import com.tvapp.repository.ShowRepository;
+import com.tvapp.themoviedb.Season;
+import com.tvapp.themoviedb.ShowDetails;
 import com.tvapp.utils.ShowResourceAssembler;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -23,7 +25,7 @@ public class ShowController {
 
   private final ShowRepository showRepository;
   private final ShowResourceAssembler assembler;
-  private ShowDAO dao = new ShowDAO();
+  private MovieDBDAO dao = new MovieDBDAO();
 
   ShowController(ShowRepository showRepository, ShowResourceAssembler assembler) {
       this.showRepository = showRepository;
@@ -53,6 +55,19 @@ public class ShowController {
         String searchTerm = param.get("searchQuery");
         //return showRepository.findByNameContaining(searchTerm);
         return dao.getShows(searchTerm);
+    }
+
+    @GetMapping("/details")
+    public ShowDetails getShow(@RequestParam Map<String, String> param) {
+      String id = param.get("show_id");
+        return dao.ShowDetails(id);
+    }
+
+    @GetMapping("/details/season")
+    public Season getSeason(@RequestParam Map<String, String> param) {
+        String id = param.get("show_id");
+        String season = param.get("season");
+        return dao.ShowSeason(id, season);
     }
 
     @PostMapping
