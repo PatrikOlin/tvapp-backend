@@ -1,4 +1,4 @@
-package com.tvapp.domain;
+package com.tvapp.themoviedb;
 
 import java.util.List;
 
