@@ -27,19 +27,22 @@ public class ApiModel {
     @Column(length = 50)
     private String password;
 
+    @Column(length = 50, name = "api_key")
+    private String apiKey;
+
+    @Column(length = 50, name = "user_key")
+    private String userKey;
+
     public ApiModel() {
     }
 
-    public ApiModel(String name, String token) {
-        this.name = name;
-        this.token = token;
-    }
-
-    public ApiModel(String name, String token, String userName, String password) {
+    public ApiModel(String name, String token, String userName, String password, String apiKey, String userKey) {
         this.name = name;
         this.token = token;
         this.userName = userName;
         this.password = password;
+        this.apiKey = apiKey;
+        this.userKey = userKey;
     }
 
     public int getId() {
@@ -88,5 +91,21 @@ public class ApiModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public String getUserKey() {
+        return userKey;
+    }
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
     }
 }
