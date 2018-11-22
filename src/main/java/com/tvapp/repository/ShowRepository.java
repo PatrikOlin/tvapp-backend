@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ShowRepository extends JpaRepository<Show, Integer> {
 
-    Show findByName(String name);
+    Show findByTitle(String name);
 
-    List<Show> findByNameContaining(String name);
+    List<Show> findByTitleContaining(String name);
 }

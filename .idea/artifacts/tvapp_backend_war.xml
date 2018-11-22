@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="tvapp-backend:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="tvappBackend.war">
+      <element id="artifact" artifact-name="tvapp-backend:war exploded" />
+    </root>
+  </artifact>
+</component>
