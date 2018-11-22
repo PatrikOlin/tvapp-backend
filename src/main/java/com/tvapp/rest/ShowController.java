@@ -1,7 +1,7 @@
 package com.tvapp.rest;
 
 import com.tvapp.dao.ShowDAO;
-import com.tvapp.domain.Result;
+import com.tvapp.themoviedb.Result;
 import com.tvapp.model.Show;
 import com.tvapp.repository.ShowRepository;
 import com.tvapp.utils.ShowResourceAssembler;
@@ -52,7 +52,7 @@ public class ShowController {
     public List<Result> search(@RequestParam Map<String, String> param) {
         String searchTerm = param.get("searchQuery");
         //return showRepository.findByNameContaining(searchTerm);
-        return dao.getShow(searchTerm);
+        return dao.getShows(searchTerm);
     }
 
     @PostMapping
