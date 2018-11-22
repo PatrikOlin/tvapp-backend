@@ -1,15 +1,16 @@
 package com.tvapp.dao;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import com.tvapp.domain.Result;
+import com.tvapp.domain.ShowResult;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ShowDAO {
@@ -17,32 +18,7 @@ public class ShowDAO {
 
     private static String url = "https://api.themoviedb.org/3/search/tv";
 
-//    public void getShow(String search) {
-//        final String uri = String.format("https://api.themoviedb.org/3/search/tv?api_key=%s&query=%s", THEMOVIEDBKEY, search);
-//        String result = "";
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-//
-//        Map<String, String> params = new HashMap<String, String>();
-//        //params.put("api_key", "api_key=" + THEMOVIEDBKEY);
-//        //params.put("query", "query=" + search);
-//
-//        try {
-//        result = restTemplate.getForObject(uri, String.class);
-//        } catch (HttpClientErrorException ex) {
-//            String api = restTemplate.getUriTemplateHandler().toString();
-//            System.out.println(ex.getStackTrace());
-//            System.out.println(params);
-//        }
-//
-//        System.out.println(result);
-//
-//    }
-
-    public String getShow(String search) {
+    public List<Result> getShow(String search) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -51,17 +27,19 @@ public class ShowDAO {
                 .queryParam("api_key", THEMOVIEDBKEY)
                 .queryParam("query", search);
 
+
+
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        HttpEntity<String> response = restTemplate.exchange(
+        ResponseEntity<ShowResult> response = restTemplate.exchange(
                 builder.build().toUriString(),
                 HttpMethod.GET,
                 entity,
-                String.class
+                new ParameterizedTypeReference<ShowResult>() {
+                }
         );
 
 //        HttpEntity<String> response = restTemplate.getForEntity(builder.build().encode().toUri(), String.class);
-
-        return response.getBody();
+        return response.getBody().getResults();
     }
 }
