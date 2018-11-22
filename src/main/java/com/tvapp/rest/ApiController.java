@@ -1,5 +1,6 @@
 package com.tvapp.rest;
 
+import com.sun.istack.internal.Nullable;
 import com.tvapp.model.ApiModel;
 import com.tvapp.repository.ApiRepository;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,11 @@ public class ApiController {
     public ApiModel create(@RequestBody Map<String, String> body) {
         String name = body.get("name");
         String token = body.get("token");
-        return apiRepository.save(new ApiModel(name, token));
+        @Nullable
+        String userName = body.get("user");
+        @Nullable
+        String password = body.get("password");
+
+        return apiRepository.save(new ApiModel(name, token, userName, password));
     }
 }

@@ -21,12 +21,25 @@ public class ApiModel {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    @Column(name = "user_name", length = 50)
+    private String userName;
+
+    @Column(length = 50)
+    private String password;
+
     public ApiModel() {
     }
 
     public ApiModel(String name, String token) {
         this.name = name;
         this.token = token;
+    }
+
+    public ApiModel(String name, String token, String userName, String password) {
+        this.name = name;
+        this.token = token;
+        this.userName = userName;
+        this.password = password;
     }
 
     public int getId() {
@@ -61,13 +74,19 @@ public class ApiModel {
         this.creationDate = creationDate;
     }
 
-    @Override
-    public String toString() {
-        return "ApiModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", token='" + token + '\'' +
-                ", creationDate=" + creationDate +
-                '}';
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
