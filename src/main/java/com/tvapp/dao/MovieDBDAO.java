@@ -25,13 +25,12 @@ public class MovieDBDAO {
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
     }
 
-    public List<Result> getShows(String search) {
+    public List<Result> searchShows(String search) {
         restTemplate = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(SEARCH_URL)
                 .queryParam("api_key", THE_MOVIE_DB_KEY)
                 .queryParam("query", search);
-
 
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -52,7 +51,8 @@ public class MovieDBDAO {
         restTemplate = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(SHOW_DETAILS_URL + id)
-                .queryParam("api_key", THE_MOVIE_DB_KEY);
+                .queryParam("api_key", THE_MOVIE_DB_KEY)
+                .queryParam("append_to_response", "external_ids");
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 

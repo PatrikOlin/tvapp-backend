@@ -1,6 +1,7 @@
 package com.tvapp.rest;
 
 import com.tvapp.dao.MovieDBDAO;
+import com.tvapp.dao.TheTVDBDAO;
 import com.tvapp.themoviedb.Result;
 import com.tvapp.model.Show;
 import com.tvapp.repository.ShowRepository;
@@ -25,7 +26,7 @@ public class ShowController {
 
   private final ShowRepository showRepository;
   private final ShowResourceAssembler assembler;
-  private MovieDBDAO dao = new MovieDBDAO();
+  private MovieDBDAO movieDBDAO = new MovieDBDAO();
 
   ShowController(ShowRepository showRepository, ShowResourceAssembler assembler) {
       this.showRepository = showRepository;
@@ -54,20 +55,20 @@ public class ShowController {
     public List<Result> search(@RequestParam Map<String, String> param) {
         String searchTerm = param.get("searchQuery");
         //return showRepository.findByNameContaining(searchTerm);
-        return dao.getShows(searchTerm);
+        return movieDBDAO.searchShows(searchTerm);
     }
 
     @GetMapping("/details")
     public ShowDetails getShow(@RequestParam Map<String, String> param) {
       String id = param.get("show_id");
-        return dao.ShowDetails(id);
+        return movieDBDAO.ShowDetails(id);
     }
 
     @GetMapping("/details/season")
     public Season getSeason(@RequestParam Map<String, String> param) {
         String id = param.get("show_id");
         String season = param.get("season");
-        return dao.ShowSeason(id, season);
+        return movieDBDAO.ShowSeason(id, season);
     }
 
     @PostMapping
