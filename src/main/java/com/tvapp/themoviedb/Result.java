@@ -51,14 +51,4 @@ public class Result {
     public void setOverview(String overview) {
         this.overview = overview;
     }
-
-    @Override
-    public String toString() {
-        return "Result{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", poster_path='" + poster_path + '\'' +
-                ", overview='" + overview + '\'' +
-                '}';
-    }
 }

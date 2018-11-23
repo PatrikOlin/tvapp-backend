@@ -8,16 +8,18 @@ public class ShowDetails {
     private String name;
     private Episode next_episode_to_air;
     private List<Season> seasons;
+    private ExternalSources external_ids;
 
     public ShowDetails() {
     }
 
-    public ShowDetails(String first_air_date, Episode last_episode_to_air, String name, Episode next_episode_to_air, List<Season> seasons) {
+    public ShowDetails(String first_air_date, Episode last_episode_to_air, String name, Episode next_episode_to_air, List<Season> seasons, ExternalSources external_ids) {
         this.first_air_date = first_air_date;
         this.last_episode_to_air = last_episode_to_air;
         this.name = name;
         this.next_episode_to_air = next_episode_to_air;
         this.seasons = seasons;
+        this.external_ids = external_ids;
     }
 
     public String getFirst_air_date() {
@@ -58,5 +60,13 @@ public class ShowDetails {
 
     public void setSeasons(List<Season> seasons) {
         this.seasons = seasons;
+    }
+
+    public ExternalSources getExternal_ids() {
+        return external_ids;
+    }
+
+    public void setExternal_ids(ExternalSources external_ids) {
+        this.external_ids = external_ids;
     }
 }

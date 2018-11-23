@@ -1,6 +1,6 @@
 package com.tvapp.enums;
 
 public enum ApiName {
-    THEMOVIEDB,
+    THEMOVIEDB,THETVDB
 
 }
