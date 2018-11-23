@@ -94,7 +94,7 @@ public class Show {
 
     @Override
     public String toString() {
-        return "Show{" +
+        return "TVDBShowDetails{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", imageUrl=" + imageUrl +

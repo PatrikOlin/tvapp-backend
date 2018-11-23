@@ -1,4 +1,4 @@
-package com.tvapp.themoviedb;
+package com.tvapp.themoviedb.domain;
 
 public class ExternalSources {
     private String imdb_id;
@@ -8,14 +8,6 @@ public class ExternalSources {
     private String twitter_id;
 
     public ExternalSources() {
-    }
-
-    public ExternalSources(String imdb_id, String tvdb_id, String facebook_id, String instagram_id, String twitter_id) {
-        this.imdb_id = imdb_id;
-        this.tvdb_id = tvdb_id;
-        this.facebook_id = facebook_id;
-        this.instagram_id = instagram_id;
-        this.twitter_id = twitter_id;
     }
 
     public String getImdb_id() {

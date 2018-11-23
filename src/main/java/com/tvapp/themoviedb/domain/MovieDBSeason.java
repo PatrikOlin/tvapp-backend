@@ -1,8 +1,8 @@
-package com.tvapp.themoviedb;
+package com.tvapp.themoviedb.domain;
 
 import java.util.List;
 
-public class Season {
+public class MovieDBSeason {
 
     private String air_date;
     private int episode_count;
@@ -11,20 +11,10 @@ public class Season {
     private String overview;
     private String poster_path;
     private int season_number;
-    private List<Episode> episodes;
+    private List<MovieDBEpisode> episodes;
 
-    public Season() {
+    public MovieDBSeason() {
     }
-
-//    public Season(String air_date, int episode_count, int id, String name, String overview, String poster_path, int season_number) {
-//        this.air_date = air_date;
-//        this.episode_count = episode_count;
-//        this.id = id;
-//        this.name = name;
-//        this.overview = overview;
-//        this.poster_path = poster_path;
-//        this.season_number = season_number;
-//    }
 
     public String getAir_date() {
         return air_date;
@@ -82,11 +72,11 @@ public class Season {
         this.season_number = season_number;
     }
 
-    public List<Episode> getEpisodes() {
+    public List<MovieDBEpisode> getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(List<Episode> episodes) {
+    public void setEpisodes(List<MovieDBEpisode> episodes) {
         this.episodes = episodes;
     }
 }

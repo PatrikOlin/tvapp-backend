@@ -1,6 +1,6 @@
-package com.tvapp.themoviedb;
+package com.tvapp.themoviedb.domain;
 
-public class Episode {
+public class MovieDBEpisode {
     private String air_date;
     private int episode_number;
     private int id;
@@ -9,22 +9,7 @@ public class Episode {
     private int season_number;
     private String still_path;
 
-    public Episode() {
-    }
-
-    public Episode(String air_date,
-                   int episode_number,
-                   int id, String name,
-                   String overview,
-                   int season_number,
-                   String still_path) {
-        this.air_date = air_date;
-        this.episode_number = episode_number;
-        this.id = id;
-        this.name = name;
-        this.overview = overview;
-        this.season_number = season_number;
-        this.still_path = still_path;
+    public MovieDBEpisode() {
     }
 
     public String getAir_date() {

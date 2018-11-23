@@ -1,9 +1,9 @@
-package com.tvapp.dao;
+package com.tvapp.themoviedb;
 
-import com.tvapp.themoviedb.Result;
-import com.tvapp.themoviedb.Season;
-import com.tvapp.themoviedb.ShowDetails;
-import com.tvapp.themoviedb.ShowResult;
+import com.tvapp.themoviedb.domain.MovieDBShowResult;
+import com.tvapp.themoviedb.domain.Result;
+import com.tvapp.themoviedb.domain.MovieDBSeason;
+import com.tvapp.themoviedb.domain.MovieDBShowDetails;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -35,11 +35,11 @@ public class MovieDBDAO {
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<ShowResult> response = restTemplate.exchange(
+        ResponseEntity<MovieDBShowResult> response = restTemplate.exchange(
                 builder.build().toUriString(),
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<ShowResult>() {
+                new ParameterizedTypeReference<MovieDBShowResult>() {
                 }
         );
 
@@ -47,7 +47,7 @@ public class MovieDBDAO {
         return response.getBody().getResults();
     }
 
-    public ShowDetails ShowDetails(String id) {
+    public MovieDBShowDetails ShowDetails(String id) {
         restTemplate = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(SHOW_DETAILS_URL + id)
@@ -56,18 +56,18 @@ public class MovieDBDAO {
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<ShowDetails> response = restTemplate.exchange(
+        ResponseEntity<MovieDBShowDetails> response = restTemplate.exchange(
                 builder.build().toUriString(),
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<ShowDetails>() {
+                new ParameterizedTypeReference<MovieDBShowDetails>() {
                 }
         );
 
         return response.getBody();
     }
 
-    public Season ShowSeason(String id, String seasonNo) {
+    public MovieDBSeason ShowSeason(String id, String seasonNo) {
         restTemplate = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(SHOW_DETAILS_URL + id + "/season/" + seasonNo)
@@ -75,11 +75,11 @@ public class MovieDBDAO {
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Season> response = restTemplate.exchange(
+        ResponseEntity<MovieDBSeason> response = restTemplate.exchange(
                 builder.build().toUriString(),
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<Season>() {
+                new ParameterizedTypeReference<MovieDBSeason>() {
                 }
         );
 

@@ -1,21 +1,14 @@
-package com.tvapp.themoviedb;
+package com.tvapp.themoviedb.domain;
 
 import java.util.List;
 
-public class ShowResult {
+public class MovieDBShowResult {
     private int page;
     private int total_result;
     private int total_pages;
     private List<Result> results;
 
-    public ShowResult() {
-    }
-
-    public ShowResult(int page, int total_result, int total_pages, List<Result> results) {
-        this.page = page;
-        this.total_result = total_result;
-        this.total_pages = total_pages;
-        this.results = results;
+    public MovieDBShowResult() {
     }
 
     public int getPage() {
@@ -52,7 +45,7 @@ public class ShowResult {
 
     @Override
     public String toString() {
-        return "ShowResult{" +
+        return "MovieDBShowResult{" +
                 "page=" + page +
                 ", total_result=" + total_result +
                 ", total_pages=" + total_pages +
