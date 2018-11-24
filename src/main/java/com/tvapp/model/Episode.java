@@ -77,7 +77,7 @@ public class Episode {
 
     @Override
     public String toString() {
-        return "Episode{" +
+        return "MovieDBEpisode{" +
                 "title='" + title + '\'' +
                 ", overview='" + overview + '\'' +
                 ", length=" + length +
