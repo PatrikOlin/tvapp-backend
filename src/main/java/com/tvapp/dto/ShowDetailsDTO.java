@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ShowDetailsDTO {
     // The MovieDB
+    private int serieId;
     private String serieName;
     private String first_air_date;
     private String overview;
@@ -31,6 +32,7 @@ public class ShowDetailsDTO {
     public ShowDetailsDTO(
             MovieDBShowDetails movieDBShowDetails,
             TVDBShowDetails tvdbShowDetails) {
+        this.serieId = movieDBShowDetails.getId();
         this.serieName = movieDBShowDetails.getName();
         this.first_air_date = movieDBShowDetails.getFirst_air_date();
         this.overview = movieDBShowDetails.getOverview();
@@ -45,6 +47,14 @@ public class ShowDetailsDTO {
         this.siteRating = tvdbShowDetails.getSiteRating();
         this.siteRatingCount = tvdbShowDetails.getSiteRatingCount();
         this.imdbId = tvdbShowDetails.getImdbId();
+    }
+
+    public int getSerieId() {
+        return serieId;
+    }
+
+    public void setSerieId(int serieId) {
+        this.serieId = serieId;
     }
 
     public String getSerieName() {

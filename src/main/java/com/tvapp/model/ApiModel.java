@@ -7,6 +7,8 @@ import java.util.Date;
 @Table(name = "api")
 public class ApiModel {
 
+    // TODO: Nytt namn på klassen
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

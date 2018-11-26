@@ -11,16 +11,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+import static com.tvapp.Constants.*;
 public class MovieDBDAO {
 
     private RestTemplate restTemplate;
     private HttpHeaders headers;
+    private String apiKey;
 
-    private final static String THE_MOVIE_DB_KEY = "d8c2bb4b3c15ea3ac0f2e1e6e2439eef";
-    private final static String SEARCH_URL = "https://api.themoviedb.org/3/search/tv";
-    private final static String SHOW_DETAILS_URL = "https://api.themoviedb.org/3/tv/";
-
-    public MovieDBDAO() {
+    public MovieDBDAO(String apiKey) {
+        this.apiKey = apiKey;
         headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
     }
@@ -28,8 +27,8 @@ public class MovieDBDAO {
     public List<Result> searchShows(String search) {
         restTemplate = new RestTemplate();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(SEARCH_URL)
-                .queryParam("api_key", THE_MOVIE_DB_KEY)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SEARCH_URL)
+                .queryParam("api_key", apiKey)
                 .queryParam("query", search);
 
 
@@ -50,8 +49,8 @@ public class MovieDBDAO {
     public MovieDBShowDetails ShowDetails(String id) {
         restTemplate = new RestTemplate();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(SHOW_DETAILS_URL + id)
-                .queryParam("api_key", THE_MOVIE_DB_KEY)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + id)
+                .queryParam("api_key", apiKey)
                 .queryParam("append_to_response", "external_ids");
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -70,8 +69,8 @@ public class MovieDBDAO {
     public MovieDBSeason ShowSeason(String id, String seasonNo) {
         restTemplate = new RestTemplate();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(SHOW_DETAILS_URL + id + "/season/" + seasonNo)
-                .queryParam("api_key", THE_MOVIE_DB_KEY);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + id + "/season/" + seasonNo)
+                .queryParam("api_key", apiKey);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
