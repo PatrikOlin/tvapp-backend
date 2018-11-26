@@ -3,9 +3,10 @@ package com.tvapp.themoviedb.domain;
 import java.util.List;
 
 public class MovieDBShowDetails {
+    private String name;
+    private int id;
     private String first_air_date;
     private MovieDBEpisode last_episode_to_air;
-    private String name;
     private MovieDBEpisode next_episode_to_air;
     private String overview;
     private String poster_path;
@@ -14,6 +15,14 @@ public class MovieDBShowDetails {
     private String status;
 
     public MovieDBShowDetails() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirst_air_date() {

@@ -56,7 +56,7 @@ public class UserController {
      * @param email of user
      * @return a user
      */
-    @GetMapping("/{email}")
+    @GetMapping("/login/{email}")
     public Resource<UserDetails> one(@PathVariable String email) {
 
         UserDetails userDetails = userRepository.findByEmail(email);
