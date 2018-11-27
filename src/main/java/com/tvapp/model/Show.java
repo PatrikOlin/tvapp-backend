@@ -1,5 +1,7 @@
 package com.tvapp.model;
 
+import com.tvapp.dto.ShowDetailsDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,45 +9,51 @@ import javax.persistence.*;
 public class Show {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "shows_id")
     private int id;
 
-    @Column(name = "shows_title")
     private String title;
 
-    @Column(name = "shows_thumbnail")
-    private String imageUrl;
+    @Column(name = "image_url")
+    private String poster_path;
 
-    @Column(name = "shows_overview", length = 2000)
+    @Column(length = 2000)
     private String overview;
 
-    @Column(name = "shows_status")
+    @Column(name = "status_of_show")
     private String status;
 
-
+    @Column(name = "next_air_date")
+    private String nextAirDate;
 
     public Show() {
-
     }
 
     public Show(String title, String imageUrl) {
         this.setTitle(title);
-        this.setImageUrl(imageUrl);
+        this.setPoster_path(imageUrl);
     }
 
     public Show(int id, String title, String imageUrl) {
         this.setId(id);
         this.setTitle(title);
-        this.setImageUrl(imageUrl);
+        this.setPoster_path(imageUrl);
     }
 
     public Show(String title, String imageUrl, String overview, String status) {
         this.setTitle(title);
-        this.setImageUrl(imageUrl);
+        this.setPoster_path(imageUrl);
         this.setOverview(overview);
         this.setStatus(status);
 
+    }
+
+    public Show(ShowDetailsDTO show) {
+        this.id = show.getSerieId();
+        this.title = show.getSerieName();
+        this.poster_path = show.getPoster_path();
+        this.overview = show.getOverview();
+        this.status = show.getStatus();
+        this.nextAirDate = show.getNext_episode_to_air().getAir_date();
     }
 
     public Show(String title) {
@@ -68,12 +76,12 @@ public class Show {
         this.title = title;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
     public String getOverview() {
@@ -92,12 +100,11 @@ public class Show {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Show{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", imageUrl=" + imageUrl +
-                '}';
+    public String getNextAirDate() {
+        return nextAirDate;
+    }
+
+    public void setNextAirDate(String nextAirDate) {
+        this.nextAirDate = nextAirDate;
     }
 }

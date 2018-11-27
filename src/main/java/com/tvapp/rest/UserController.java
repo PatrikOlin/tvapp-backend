@@ -15,21 +15,31 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-
+/**
+ * Rest Controller for user
+ * @author Patrik Holmkvist & Patrik Olin
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     private final UserRepository userRepository;
-
     private final UserResourceAssembler assembler;
 
-
+    /**
+     * Constructor
+     * @param userRepository
+     * @param assembler
+     */
     UserController(UserRepository userRepository, UserResourceAssembler assembler) {
         this.userRepository = userRepository;
         this.assembler = assembler;
     }
 
+    /**
+     *  Retrieving all users in database
+     * @return List of users
+     */
     @GetMapping
     public Resources<Resource<UserDetails>> all() {
         List<Resource<UserDetails>> users = userRepository.findAll().stream()
@@ -40,7 +50,13 @@ public class UserController {
                 linkTo(methodOn(UserController.class).all()).withSelfRel());
     }
 
-    @GetMapping("/{email}")
+    // TODO: user login auth
+    /**
+     * search for a user with email as param
+     * @param email of user
+     * @return a user
+     */
+    @GetMapping("/login/{email}")
     public Resource<UserDetails> one(@PathVariable String email) {
 
         UserDetails userDetails = userRepository.findByEmail(email);
@@ -48,6 +64,12 @@ public class UserController {
         return assembler.toResource(userDetails);
     }
 
+    // TODO: change request to header instead of body
+    /**
+     * Creates a new user in database
+     * @param body to map requestBody
+     * @return the user
+     */
     @PostMapping
     public UserDetails create(@RequestBody Map<String, String> body) {
         String email = body.get("email");
@@ -56,6 +78,12 @@ public class UserController {
         return userRepository.save(new UserDetails(email, password));
     }
 
+    /**
+     * Updates a existing user in database
+     * @param id of user
+     * @param body is the requestBody
+     * @return updated UserDetails
+     */
     @PutMapping("/{id}")
     public UserDetails update(@PathVariable String id, @RequestBody Map<String, String> body) {
         int userId = Integer.parseInt(id);
@@ -65,10 +93,18 @@ public class UserController {
         return userRepository.save(userDetails);
     }
 
+    /**
+     *  Delete an exiating user in th database
+     * @param id of user
+     * @return a boolean value
+     */
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable String id) {
         int userId = Integer.parseInt(id);
         userRepository.delete(userId);
         return true;
     }
+
+
+
 }

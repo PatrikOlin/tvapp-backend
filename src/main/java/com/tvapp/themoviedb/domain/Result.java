@@ -1,4 +1,4 @@
-package com.tvapp.domain;
+package com.tvapp.themoviedb.domain;
 
 import java.util.List;
 
@@ -9,15 +9,7 @@ public class Result {
     private String poster_path;
     private String overview;
 
-
     public Result() {
-    }
-
-    public Result(int id, String name, String poster_path, String overview) {
-        this.id = id;
-        this.name = name;
-        this.poster_path = poster_path;
-        this.overview = overview;
     }
 
     public int getId() {
@@ -50,15 +42,5 @@ public class Result {
 
     public void setOverview(String overview) {
         this.overview = overview;
-    }
-
-    @Override
-    public String toString() {
-        return "Result{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", poster_path='" + poster_path + '\'' +
-                ", overview='" + overview + '\'' +
-                '}';
     }
 }
