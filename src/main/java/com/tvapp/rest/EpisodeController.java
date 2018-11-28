@@ -31,11 +31,6 @@ public class EpisodeController {
         int length = Integer.parseInt(body.get("length"));
         Date date = new Date();
 
-        return episodeRepository.save(new Episode(
-                title,
-                overview,
-                length,
-                date
-        ));
+        return null;
     }
 }

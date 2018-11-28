@@ -25,11 +25,11 @@ public class MovieDBSeason {
     }
 
     public int getEpisode_count() {
-        return episode_count;
+        return episodes.size();
     }
 
-    public void setEpisode_count(int episode_count) {
-        this.episode_count = episode_count;
+    public void setEpisode_count() {
+        this.episode_count = episodes.size();
     }
 
     public int getId() {

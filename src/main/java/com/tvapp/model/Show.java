@@ -1,5 +1,6 @@
 package com.tvapp.model;
 
+import com.sun.istack.internal.Nullable;
 import com.tvapp.dto.ShowDetailsDTO;
 
 import javax.persistence.*;
@@ -53,7 +54,11 @@ public class Show {
         this.poster_path = show.getPoster_path();
         this.overview = show.getOverview();
         this.status = show.getStatus();
-        this.nextAirDate = show.getNext_episode_to_air().getAir_date();
+        if (show.getNext_episode_to_air() == null) {
+            this.nextAirDate = "n/a";
+        } else {
+            this.nextAirDate = show.getNext_episode_to_air().getAir_date();
+        }
     }
 
     public Show(String title) {

@@ -1,9 +1,6 @@
 package com.tvapp.themoviedb;
 
-import com.tvapp.themoviedb.domain.MovieDBShowResult;
-import com.tvapp.themoviedb.domain.Result;
-import com.tvapp.themoviedb.domain.MovieDBSeason;
-import com.tvapp.themoviedb.domain.MovieDBShowDetails;
+import com.tvapp.themoviedb.domain.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -83,6 +80,11 @@ public class MovieDBDAO {
         );
 
         return response.getBody();
+    }
+
+    // TODO: 2018-11-28  
+    public MovieDBEpisode getEpisode() {
+        return null;
     }
 
 }

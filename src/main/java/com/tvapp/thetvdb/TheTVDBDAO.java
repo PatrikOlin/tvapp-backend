@@ -3,9 +3,7 @@ package com.tvapp.thetvdb;
 import com.tvapp.model.ApiModel;
 import com.tvapp.themoviedb.domain.MovieDBShowResult;
 import com.tvapp.themoviedb.domain.Result;
-import com.tvapp.thetvdb.domain.DataShowDetails;
-import com.tvapp.thetvdb.domain.TVDBShowDetails;
-import com.tvapp.thetvdb.domain.Token;
+import com.tvapp.thetvdb.domain.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -75,6 +73,26 @@ public class TheTVDBDAO {
                 }
         );
 
+        return response.getBody().getData();
+    }
+
+    public List<TVDBEpisode> getEpisode(String id, String season, String episode, String token) {
+        setHeader(token);
+        restTemplate = new RestTemplate();
+
+        builder = UriComponentsBuilder.fromHttpUrl(TVDB_SHOW_DETAILS_URL + id + TVDB_EPISODE_QUERY)
+                .queryParam("airedSeason", season)
+                .queryParam("airedEpisode", episode);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<DataEpisode> response = restTemplate.exchange(
+                builder.build().toUriString(),
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<DataEpisode>() {
+                }
+        );
         return response.getBody().getData();
     }
 
