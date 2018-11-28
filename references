@@ -1,0 +1,10 @@
+# Referenser
+
+# Swagger
+https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
+https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+https://github.com/eugenp/tutorials/blob/master/spring-security-rest/src/main/java/org/baeldung/spring/SwaggerConfig.java
+https://stackoverflow.com/questions/48622921/swagger-spring-api-xmlmodelplugin-error
+
+# Hitta dokumentationen
+http://localhost:8080/api/swagger-ui.html
