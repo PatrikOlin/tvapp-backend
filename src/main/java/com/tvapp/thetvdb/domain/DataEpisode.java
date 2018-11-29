@@ -1,8 +1,10 @@
 package com.tvapp.thetvdb.domain;
 
+import java.util.List;
+
 public class DataEpisode {
     private Link links;
-    private TVDBEpisode data;
+    private List<TVDBEpisode> data;
 
     public DataEpisode() {
     }
@@ -15,11 +17,11 @@ public class DataEpisode {
         this.links = links;
     }
 
-    public TVDBEpisode getData() {
+    public List<TVDBEpisode> getData() {
         return data;
     }
 
-    public void setData(TVDBEpisode data) {
+    public void setData(List<TVDBEpisode> data) {
         this.data = data;
     }
 }

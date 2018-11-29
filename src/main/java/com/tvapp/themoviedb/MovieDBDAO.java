@@ -1,9 +1,6 @@
 package com.tvapp.themoviedb;
 
-import com.tvapp.themoviedb.domain.MovieDBShowResult;
-import com.tvapp.themoviedb.domain.Result;
-import com.tvapp.themoviedb.domain.MovieDBSeason;
-import com.tvapp.themoviedb.domain.MovieDBShowDetails;
+import com.tvapp.themoviedb.domain.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -46,7 +43,7 @@ public class MovieDBDAO {
         return response.getBody().getResults();
     }
 
-    public MovieDBShowDetails ShowDetails(String id) {
+    public MovieDBShowDetails ShowDetails(int id) {
         restTemplate = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + id)
@@ -83,6 +80,11 @@ public class MovieDBDAO {
         );
 
         return response.getBody();
+    }
+
+    // TODO: 2018-11-28  
+    public MovieDBEpisode getEpisode() {
+        return null;
     }
 
 }

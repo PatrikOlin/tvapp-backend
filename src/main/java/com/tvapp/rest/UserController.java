@@ -64,16 +64,15 @@ public class UserController {
         return assembler.toResource(userDetails);
     }
 
-    // TODO: change request to header instead of body
     /**
      * Creates a new user in database
-     * @param body to map requestBody
+     * @param header to map requestBody
      * @return the user
      */
     @PostMapping
-    public UserDetails create(@RequestBody Map<String, String> body) {
-        String email = body.get("email");
-        String password = body.get("password");
+    public UserDetails create(@RequestHeader Map<String, String> header) {
+        String email = header.get("email");
+        String password = header.get("password");
 
         return userRepository.save(new UserDetails(email, password));
     }

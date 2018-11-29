@@ -14,8 +14,10 @@ import com.tvapp.repository.ShowRepository;
 import com.tvapp.themoviedb.domain.MovieDBSeason;
 import com.tvapp.themoviedb.domain.MovieDBShowDetails;
 import com.tvapp.thetvdb.TheTVDBDAO;
+import com.tvapp.thetvdb.domain.TVDBEpisode;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
 import com.tvapp.utils.ShowResourceAssembler;
+import com.tvapp.utils.services.TokenService;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.web.bind.annotation.*;
@@ -38,17 +40,17 @@ public class ShowController {
     private final ShowRepository showRepository;
     private final ApiRepository apiRepository;
     private final ShowResourceAssembler assembler;
-    private final FavoriteRepository favoriteRepository;
     private MovieDBDAO movieDBDAO;
     private TheTVDBDAO theTVDBDAO;
+    private TokenService tokenService;
 
-    ShowController(ShowRepository showRepository, ApiRepository apiRepository, FavoriteRepository favoriteRepository, ShowResourceAssembler assembler) {
+    ShowController(ShowRepository showRepository, ApiRepository apiRepository, ShowResourceAssembler assembler) {
         this.showRepository = showRepository;
         this.apiRepository = apiRepository;
-        this.favoriteRepository = favoriteRepository;
         this.assembler = assembler;
+        this.tokenService = new TokenService(apiRepository);
         theTVDBDAO = new TheTVDBDAO();
-        movieDBDAO = new MovieDBDAO(getApiKeyForMovieDB().getApiKey());
+        movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
     // TODO: Behövs??
@@ -85,61 +87,29 @@ public class ShowController {
      * @return Details of show
      */
     @GetMapping("/details")
-    public ShowDetailsDTO getShow(@RequestParam Map<String, String> param) {
+    public ShowDetailsDTO getShow(@RequestParam Map<String, Integer> param) {
         MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(param.get("show_id"));
-        TVDBShowDetails tvDB = theTVDBDAO.showDetails(movieDB.getExternal_ids().getTvdb_id(), checkExpirationDateForTVDBToken().getToken());
+        TVDBShowDetails tvDB = theTVDBDAO.showDetails(movieDB.getExternal_ids().getTvdb_id(), tokenService.checkExpirationDateForTVDBToken().getToken());
 
         return new ShowDetailsDTO(movieDB, tvDB);
     }
 
     // TODO: return season
     @GetMapping("/details/season")
-    public MovieDBSeason getSeason(@RequestParam Map<String, String> param) {
-        String id = param.get("show_id");
-        String season = param.get("season");
+    public MovieDBSeason getSeason(@RequestBody Map<String, String> body) {
+        String id = body.get("show_id");
+        String season = body.get("season");
         return movieDBDAO.ShowSeason(id, season);
     }
 
     // TODO: return episode
     @GetMapping("/details/episode")
-    public EpisodeDTO getEpisode() {
-        return null;
-    }
-
-    // TODO: add show to favorite in db
-    @PostMapping("/favorite")
-    public Show addToFavorite(@RequestBody Map<String, String> body) {
-        int showId = Integer.parseInt(body.get("show_id"));
-        int userId = Integer.parseInt(body.get("user_id"));
-        ApiModel token = checkExpirationDateForTVDBToken();
-        TVDBShowDetails tvDB = null;
-
-        MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(body.get("show_id"));
-        try {
-            tvDB = theTVDBDAO.showDetails(movieDB.getExternal_ids().getTvdb_id(), token.getToken());
-        } catch (HttpClientErrorException ex) {
-            token = refreshTokenForTVDB(token);
-            tvDB = theTVDBDAO.showDetails(movieDB.getExternal_ids().getTvdb_id(), token.getToken());
-        }
-
-        ShowDetailsDTO showDTO = new ShowDetailsDTO(movieDB, tvDB);
-        Show show = showRepository.save(new Show(showDTO));
-        Favorite fav = favoriteRepository.save(new Favorite(userId, showId));
-
-        if (fav == null) {
-            return null;
-        }
-
-        return show;
-    }
-
-    // TODO: Make a join query to fetch all shows
-    @GetMapping("/favorite")
-    public List<Show> getFavorites(@RequestHeader Map<String, String> header) {
-        int userId = Integer.parseInt(header.get("user_id"));
-        List<Show> shows = favoriteRepository.getAllByUserIdEquals(userId);
-
-        return shows;
+    public List<TVDBEpisode> getEpisode(@RequestBody Map<String, String> body) {
+        String id = body.get("show_id");
+        String season = body.get("season");
+        String episode = body.get("episode");
+        String token = tokenService.checkExpirationDateForTVDBToken().getToken();
+        return theTVDBDAO.getEpisode(id, season, episode, token);
     }
 
     // TODO: Behövs??
@@ -152,53 +122,17 @@ public class ShowController {
     // TODO: Ändras?? Kanske inte behövs som resurs utan endast private
     @PutMapping("/{id}")
     public Show update(@PathVariable String id, @RequestBody Map<String, String> body) {
-        int seriesId = Integer.parseInt(id);
-        Show show = showRepository.findOne(seriesId);
+        int showId = Integer.parseInt(id);
+        Show show = showRepository.findOne(showId);
         show.setTitle(body.get("name"));
         return showRepository.save(show);
     }
 
-    // TODO: Ändras?? Kanske inte behövs som resurs utan endast private
+    // TODO: Ändras?? Kanske inte behövs som resurs utan endast som private
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable String id) {
         int seriesId = Integer.parseInt(id);
         showRepository.delete(seriesId);
         return true;
-    }
-
-    // TODO: Bryta ut dessa 3 metoder till en service istället kanske om det med repos.
-
-    /**
-     * Checks if token has expired
-     * @return the ApiModel for TVDB
-     */
-    private ApiModel checkExpirationDateForTVDBToken() {
-        ApiModel apiToken = apiRepository.findByName(Constants.THE_TV_DB);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(apiToken.getCreationDate());
-        calendar.add(Calendar.HOUR_OF_DAY, 24);
-        if (calendar.getTime().before(new Date())) {
-            apiToken = refreshTokenForTVDB(apiToken);
-        }
-        return apiToken;
-    }
-
-    /**
-     * Get the movieDB apikey from database
-     * @return they apikey
-     */
-    private ApiModel getApiKeyForMovieDB() {
-        return apiRepository.findByName(Constants.MOVIE_DB);
-    }
-
-    /**
-     * Refresh the token for TVDB
-     * @param apiToken is refreshed and
-     * @return the token
-     */
-    private ApiModel refreshTokenForTVDB(ApiModel apiToken) {
-        apiToken.setToken(theTVDBDAO.refreshToken(apiToken).getToken());
-        apiToken.setCreationDate(new Date());
-        return apiRepository.save(apiToken);
     }
 }

@@ -4,35 +4,30 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "episode")
+@Table(name = "episodes")
 public class Episode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "episode_id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "episode_title")
-    private String title;
+    @Column(name = "favorite_id")
+    private int favoriteId;
 
-    @Column(name = "episode_overview", length = 2000)
-    private String overview;
+    @Column(name = "season_no")
+    private int seasonNumber;
 
-    @Column(name = "episode_length")
-    private int length;
-
-    @Column(name = "episode_air_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date airDate;
+    @Column(name = "episode_no")
+    private int episodeNumber;
 
     public Episode() {
     }
 
-    public Episode(String title, String overview, int length, Date airDate) {
-        this.title = title;
-        this.overview = overview;
-        this.length = length;
-        this.airDate = airDate;
+    public Episode(int favoriteId, int seasonNumber, int episodeNumber) {
+        this.favoriteId = favoriteId;
+        this.seasonNumber = seasonNumber;
+        this.episodeNumber = episodeNumber;
     }
 
     public int getId() {
@@ -43,45 +38,27 @@ public class Episode {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public int getFavoriteId() {
+        return favoriteId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFavoriteId(int favoriteId) {
+        this.favoriteId = favoriteId;
     }
 
-    public String getOverview() {
-        return overview;
+    public int getSeasonNumber() {
+        return seasonNumber;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setSeasonNumber(int seasonNumber) {
+        this.seasonNumber = seasonNumber;
     }
 
-    public int getLength() {
-        return length;
+    public int getEpisodeNumber() {
+        return episodeNumber;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public Date getAirDate() {
-        return airDate;
-    }
-
-    public void setAirDate(Date airDate) {
-        this.airDate = airDate;
-    }
-
-    @Override
-    public String toString() {
-        return "MovieDBEpisode{" +
-                "title='" + title + '\'' +
-                ", overview='" + overview + '\'' +
-                ", length=" + length +
-                ", airDate=" + airDate +
-                '}';
+    public void setEpisodeNumber(int episodeNumber) {
+        this.episodeNumber = episodeNumber;
     }
 }
