@@ -3,11 +3,17 @@ package com.tvapp.rest;
 
 import com.tvapp.model.UserDetails;
 import com.tvapp.repository.UserRepository;
+import com.tvapp.utils.exceptions.user.InvalidUserException;
+import com.tvapp.utils.exceptions.user.UserExistException;
+import com.tvapp.utils.exceptions.user.UserNotFoundException;
 import com.tvapp.utils.UserResourceAssembler;
+import com.tvapp.utils.services.BCryptService;
+import com.tvapp.utils.services.Base64Service;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,6 +23,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
  * Rest Controller for user
+ *
  * @author Patrik Holmkvist & Patrik Olin
  */
 @RestController
@@ -28,6 +35,7 @@ public class UserController {
 
     /**
      * Constructor
+     *
      * @param userRepository
      * @param assembler
      */
@@ -36,8 +44,10 @@ public class UserController {
         this.assembler = assembler;
     }
 
+    // TODO: Inte nödvändig
     /**
-     *  Retrieving all users in database
+     * Retrieving all users in database
+     *
      * @return List of users
      */
     @GetMapping
@@ -50,10 +60,11 @@ public class UserController {
                 linkTo(methodOn(UserController.class).all()).withSelfRel());
     }
 
-    // TODO: user login auth
+    // TODO: behövs ej eller ändra nästa metod så den returnerar resource??
     /**
      * search for a user with email as param
-     * @param email of user
+     *
+     * @param email contains email
      * @return a user
      */
     @GetMapping("/login/{email}")
@@ -65,35 +76,66 @@ public class UserController {
     }
 
     /**
-     * Creates a new user in database
-     * @param header to map requestBody
+     * search for a user with email as param
+     *
+     * @param header contains email and password
+     * @return a user
+     */
+    @GetMapping("/login")
+    public int userLogin(@RequestHeader Map<String, String> header) {
+        String password = Base64Service.decodePassword(header.get("password"));
+        UserDetails userDetails = userRepository.findByEmail(header.get("email"));
+
+        if (userDetails != null) {
+            if (BCryptService.checkPassword(password, userDetails.getPassword())) {
+                return userDetails.getId();
+            } else {
+                throw new InvalidUserException();
+            }
+        } else {
+            throw new UserNotFoundException(header.get("email"));
+        }
+
+    }
+
+    /**
+     * Creates a new user in database, if
+     * user already exist throws a 401 Unauthorized
+     *
+     * @param header to map header
      * @return the user
      */
     @PostMapping
-    public UserDetails create(@RequestHeader Map<String, String> header) {
+    public UserDetails createUser(@RequestHeader Map<String, String> header) {
         String email = header.get("email");
-        String password = header.get("password");
+        String password = Base64Service.decodePassword(header.get("password"));
+
+        UserDetails user = userRepository.findByEmail(email);
+
+        if (user != null) throw new UserExistException();
 
         return userRepository.save(new UserDetails(email, password));
     }
 
     /**
      * Updates a existing user in database
-     * @param id of user
+     *
+     * @param id   of user
      * @param body is the requestBody
      * @return updated UserDetails
      */
     @PutMapping("/{id}")
-    public UserDetails update(@PathVariable String id, @RequestBody Map<String, String> body) {
+    public UserDetails updateUser(@PathVariable String id, @RequestBody Map<String, String> body) {
         int userId = Integer.parseInt(id);
         UserDetails userDetails = userRepository.findOne(userId);
         userDetails.setPassword(body.get("password"));
-        userDetails.setEmail(body.get("email"));
         return userRepository.save(userDetails);
     }
 
+    // TODO: Kanske inte behövs i våran version. kan var något som kommer senare...
     /**
-     *  Delete an exiating user in th database
+     * Delete an exiating user in th database
+     *
      * @param id of user
      * @return a boolean value
      */
@@ -103,7 +145,6 @@ public class UserController {
         userRepository.delete(userId);
         return true;
     }
-
 
 
 }

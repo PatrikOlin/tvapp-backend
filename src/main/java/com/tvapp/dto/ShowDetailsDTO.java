@@ -1,5 +1,6 @@
 package com.tvapp.dto;
 
+import com.tvapp.themoviedb.domain.ExternalSources;
 import com.tvapp.themoviedb.domain.MovieDBEpisode;
 import com.tvapp.themoviedb.domain.MovieDBSeason;
 import com.tvapp.themoviedb.domain.MovieDBShowDetails;
@@ -8,7 +9,6 @@ import com.tvapp.thetvdb.domain.TVDBShowDetails;
 import java.util.List;
 
 public class ShowDetailsDTO {
-    // The MovieDB
     private int serieId;
     private String serieName;
     private String first_air_date;
@@ -17,21 +17,20 @@ public class ShowDetailsDTO {
     private MovieDBEpisode last_episode_to_air;
     private MovieDBEpisode next_episode_to_air;
     private String status;
-    // The TVDB
     private String airsDayOfWeek;
     private String airsTime;
     private double siteRating;
     private int siteRatingCount;
     private String imdbId;
-    // The MovieDB
     private List<MovieDBSeason> seasons;
+    private ExternalSources externalSources;
 
     public ShowDetailsDTO() {
     }
 
     public ShowDetailsDTO(
             MovieDBShowDetails movieDBShowDetails,
-            TVDBShowDetails tvdbShowDetails) {
+            TVDBShowDetails tvdbShowDetails, ExternalSources externalSources) {
         this.serieId = movieDBShowDetails.getId();
         this.serieName = movieDBShowDetails.getName();
         this.first_air_date = movieDBShowDetails.getFirst_air_date();
@@ -47,6 +46,7 @@ public class ShowDetailsDTO {
         this.siteRating = tvdbShowDetails.getSiteRating();
         this.siteRatingCount = tvdbShowDetails.getSiteRatingCount();
         this.imdbId = tvdbShowDetails.getImdbId();
+        this.externalSources = externalSources;
     }
 
     public int getSerieId() {
@@ -159,5 +159,13 @@ public class ShowDetailsDTO {
 
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
+    }
+
+    public ExternalSources getExternalSources() {
+        return externalSources;
+    }
+
+    public void setExternalSources(ExternalSources externalSources) {
+        this.externalSources = externalSources;
     }
 }

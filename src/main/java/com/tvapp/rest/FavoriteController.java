@@ -10,6 +10,7 @@ import com.tvapp.repository.EpisodeRepository;
 import com.tvapp.repository.FavoriteRepository;
 import com.tvapp.repository.ShowRepository;
 import com.tvapp.themoviedb.MovieDBDAO;
+import com.tvapp.themoviedb.domain.ExternalSources;
 import com.tvapp.themoviedb.domain.MovieDBShowDetails;
 import com.tvapp.thetvdb.TheTVDBDAO;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
@@ -26,7 +27,6 @@ public class FavoriteController {
 
     private TokenService tokenService;
     private final FavoriteRepository favoriteRepository;
-    private final ApiRepository apiRepository;
     private final ShowRepository showRepository;
     private final EpisodeRepository episodeRepository;
     private MovieDBDAO movieDBDAO;
@@ -37,7 +37,6 @@ public class FavoriteController {
                               ShowRepository showRepository,
                               EpisodeRepository episodeRepository) {
         this.favoriteRepository = favoriteRepository;
-        this.apiRepository = apiRepository;
         this.showRepository = showRepository;
         this.episodeRepository = episodeRepository;
         this.tokenService = new TokenService(apiRepository);
@@ -74,14 +73,15 @@ public class FavoriteController {
         TVDBShowDetails tvDB;
 
         MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
+        ExternalSources sources = movieDBDAO.getExternalIds(showId);
         try {
-            tvDB = theTVDBDAO.showDetails(movieDB.getExternal_ids().getTvdb_id(), token.getToken());
+            tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
         } catch (HttpClientErrorException ex) {
             token = tokenService.refreshTokenForTVDB(token);
-            tvDB = theTVDBDAO.showDetails(movieDB.getExternal_ids().getTvdb_id(), token.getToken());
+            tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
         }
 
-        ShowDetailsDTO showDTO = new ShowDetailsDTO(movieDB, tvDB);
+        ShowDetailsDTO showDTO = new ShowDetailsDTO(movieDB, tvDB, sources);
         Show show = showRepository.save(new Show(showDTO));
         Favorite fav = favoriteRepository.save(new Favorite(userId, showId));
 
@@ -91,8 +91,6 @@ public class FavoriteController {
 
         return show;
     }
-
-    // TODO: 2018-11-29 if show is unique remove from shows.
 
     /**
      * Removes a show from favorite and episodes
@@ -123,7 +121,7 @@ public class FavoriteController {
      *
      * @param body to map key and value.
      */
-    @PostMapping("episode")
+    @PostMapping("/episode")
     public void watchedEpisodeList(@RequestBody Map<String, Integer> body) {
         int showId = body.get("show_id");
         int userId = body.get("user_id");

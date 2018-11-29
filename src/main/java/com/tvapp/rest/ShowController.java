@@ -8,11 +8,9 @@ import com.tvapp.model.Favorite;
 import com.tvapp.repository.ApiRepository;
 import com.tvapp.repository.FavoriteRepository;
 import com.tvapp.themoviedb.MovieDBDAO;
-import com.tvapp.themoviedb.domain.Result;
+import com.tvapp.themoviedb.domain.*;
 import com.tvapp.model.Show;
 import com.tvapp.repository.ShowRepository;
-import com.tvapp.themoviedb.domain.MovieDBSeason;
-import com.tvapp.themoviedb.domain.MovieDBShowDetails;
 import com.tvapp.thetvdb.TheTVDBDAO;
 import com.tvapp.thetvdb.domain.TVDBEpisode;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
@@ -38,7 +36,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class ShowController {
 
     private final ShowRepository showRepository;
-    private final ApiRepository apiRepository;
     private final ShowResourceAssembler assembler;
     private MovieDBDAO movieDBDAO;
     private TheTVDBDAO theTVDBDAO;
@@ -46,7 +43,6 @@ public class ShowController {
 
     ShowController(ShowRepository showRepository, ApiRepository apiRepository, ShowResourceAssembler assembler) {
         this.showRepository = showRepository;
-        this.apiRepository = apiRepository;
         this.assembler = assembler;
         this.tokenService = new TokenService(apiRepository);
         theTVDBDAO = new TheTVDBDAO();
@@ -72,6 +68,7 @@ public class ShowController {
 
     /**
      * Search for series
+     *
      * @param param searchQuery
      * @return List of search result
      */
@@ -83,18 +80,28 @@ public class ShowController {
 
     /**
      * Get a detail information of a show.
+     *
      * @param param to map id
      * @return Details of show
      */
     @GetMapping("/details")
     public ShowDetailsDTO getShow(@RequestParam Map<String, Integer> param) {
-        MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(param.get("show_id"));
-        TVDBShowDetails tvDB = theTVDBDAO.showDetails(movieDB.getExternal_ids().getTvdb_id(), tokenService.checkExpirationDateForTVDBToken().getToken());
+        int showId = param.get("show_id");
+        MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
+        ExternalSources sources = movieDBDAO.getExternalIds(showId);
+        ApiModel token = tokenService.checkExpirationDateForTVDBToken();
+        TVDBShowDetails tvDB;
 
-        return new ShowDetailsDTO(movieDB, tvDB);
+        try {
+            tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
+        } catch (HttpClientErrorException ex) {
+            token = tokenService.refreshTokenForTVDB(token);
+            tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
+        }
+
+        return new ShowDetailsDTO(movieDB, tvDB, sources);
     }
 
-    // TODO: return season
     @GetMapping("/details/season")
     public MovieDBSeason getSeason(@RequestBody Map<String, String> body) {
         String id = body.get("show_id");
@@ -102,14 +109,30 @@ public class ShowController {
         return movieDBDAO.ShowSeason(id, season);
     }
 
-    // TODO: return episode
+    /**
+     * Send request to gather episode information
+     *
+     * @param body to map id, season and episode
+     * @return a EpisodeDTO
+     */
     @GetMapping("/details/episode")
-    public List<TVDBEpisode> getEpisode(@RequestBody Map<String, String> body) {
-        String id = body.get("show_id");
-        String season = body.get("season");
-        String episode = body.get("episode");
-        String token = tokenService.checkExpirationDateForTVDBToken().getToken();
-        return theTVDBDAO.getEpisode(id, season, episode, token);
+    public EpisodeDTO getDetailedEpisode(@RequestBody Map<String, Integer> body) {
+        int movieDBId = body.get("show_id");
+        int season = body.get("season");
+        int episode = body.get("episode");
+        int tvDBId = movieDBDAO.getExternalIds(movieDBId).getTvdb_id();
+
+        MovieDBEpisode movieDBEpisode = movieDBDAO.getEpisode(movieDBId, season, episode);
+        TVDBEpisode tvdbEpisode;
+        ApiModel token = tokenService.checkExpirationDateForTVDBToken();
+        try {
+            tvdbEpisode = theTVDBDAO.getEpisode(tvDBId, season, episode, token.getToken()).get(0);
+        } catch (HttpClientErrorException ex) {
+            token = tokenService.refreshTokenForTVDB(token);
+            tvdbEpisode = theTVDBDAO.getEpisode(tvDBId, season, episode, token.getToken()).get(0);
+        }
+
+        return new EpisodeDTO(movieDBEpisode, tvdbEpisode);
     }
 
     // TODO: Behövs??

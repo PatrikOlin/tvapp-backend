@@ -57,7 +57,7 @@ public class TheTVDBDAO {
         return response.getBody().getResults();
     }
 
-    public TVDBShowDetails showDetails(String id, String token) throws HttpClientErrorException {
+    public TVDBShowDetails showDetails(int id, String token) throws HttpClientErrorException {
         setHeader(token);
         restTemplate = new RestTemplate();
 
@@ -76,7 +76,7 @@ public class TheTVDBDAO {
         return response.getBody().getData();
     }
 
-    public List<TVDBEpisode> getEpisode(String id, String season, String episode, String token) {
+    public List<TVDBEpisode> getEpisode(int id, int season, int episode, String token) {
         setHeader(token);
         restTemplate = new RestTemplate();
 
