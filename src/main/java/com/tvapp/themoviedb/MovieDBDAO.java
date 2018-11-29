@@ -43,7 +43,7 @@ public class MovieDBDAO {
         return response.getBody().getResults();
     }
 
-    public MovieDBShowDetails ShowDetails(String id) {
+    public MovieDBShowDetails ShowDetails(int id) {
         restTemplate = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + id)

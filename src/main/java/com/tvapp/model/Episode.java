@@ -4,10 +4,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "episode")
+@Table(name = "episodes")
 public class Episode {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
@@ -21,6 +22,12 @@ public class Episode {
     private int episodeNumber;
 
     public Episode() {
+    }
+
+    public Episode(int favoriteId, int seasonNumber, int episodeNumber) {
+        this.favoriteId = favoriteId;
+        this.seasonNumber = seasonNumber;
+        this.episodeNumber = episodeNumber;
     }
 
     public int getId() {

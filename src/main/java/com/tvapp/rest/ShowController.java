@@ -87,7 +87,7 @@ public class ShowController {
      * @return Details of show
      */
     @GetMapping("/details")
-    public ShowDetailsDTO getShow(@RequestParam Map<String, String> param) {
+    public ShowDetailsDTO getShow(@RequestParam Map<String, Integer> param) {
         MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(param.get("show_id"));
         TVDBShowDetails tvDB = theTVDBDAO.showDetails(movieDB.getExternal_ids().getTvdb_id(), tokenService.checkExpirationDateForTVDBToken().getToken());
 
