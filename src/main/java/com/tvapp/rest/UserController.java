@@ -1,6 +1,5 @@
 package com.tvapp.rest;
 
-
 import com.tvapp.model.UserDetails;
 import com.tvapp.repository.UserRepository;
 import com.tvapp.utils.UserResourceAssembler;
@@ -71,7 +70,6 @@ public class UserController {
         return assembler.toResource(userDetails);
     }
 
-    // TODO: base64encode id and psw in headern returnera 200
     /**
      * Updates a existing user in database
      *
@@ -88,7 +86,6 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    // TODO: Kanske inte behövs i våran version. kan vara något som kommer senare...
     /**
      * Delete an exiating user in th database
      *
