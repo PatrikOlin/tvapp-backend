@@ -89,12 +89,12 @@ public class UserController {
     /**
      * Delete an exiating user in th database
      *
-     * @param id of user
+     * @param header
      * @return a boolean value
      */
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable String id) {
-        int userId = Integer.parseInt(id);
+    @DeleteMapping
+    public boolean delete(@RequestHeader Map<String, String> header) {
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
         userRepository.delete(userId);
         return true;
     }

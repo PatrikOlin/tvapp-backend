@@ -55,7 +55,7 @@ public class LoginController {
     @PostMapping("/login")
     public String createUser(@RequestHeader Map<String, String> header) {
         String email = header.get("email");
-        String password = Base64Service.decodePassword(header.get("password"));
+        String password = Base64Service.decodeData(header.get("password"));
 
         UserDetails user = userRepository.findByEmail(email);
 
