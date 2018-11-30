@@ -1,7 +1,7 @@
 package com.tvapp.rest;
 
 import com.tvapp.dto.ShowDetailsDTO;
-import com.tvapp.model.ApiModel;
+import com.tvapp.model.Token;
 import com.tvapp.model.Episode;
 import com.tvapp.model.Favorite;
 import com.tvapp.model.Show;
@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/favorite")
 public class FavoriteController {
 
@@ -69,7 +70,7 @@ public class FavoriteController {
     public Show addToFavorite(@RequestBody Map<String, Integer> body) {
         int showId = body.get("show_id");
         int userId = body.get("user_id");
-        ApiModel token = tokenService.checkExpirationDateForTVDBToken();
+        Token token = tokenService.checkExpirationDateForTVDBToken();
         TVDBShowDetails tvDB;
 
         MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
@@ -131,16 +132,4 @@ public class FavoriteController {
         Favorite favorite = favoriteRepository.getFavoriteByUserIdLikeAndShowIdLike(userId, showId);
         episodeRepository.save(new Episode(favorite.getId(), season, episode));
     }
-
-//    @DeleteMapping("episode")
-//    public void removeEpisode(@RequestBody Map<String, Integer> body) {
-//        int favoriteId = body.get("fav_id");
-//        episodeRepository.delete(favoriteId);
-//    }
-
-//    @GetMapping("/{id}")
-//    public String countFavoriteShow(@PathVariable String id) {
-//
-//        return "Total Shows: " + favoriteRepository.countByShowId(Integer.parseInt(id));
-//    }
 }

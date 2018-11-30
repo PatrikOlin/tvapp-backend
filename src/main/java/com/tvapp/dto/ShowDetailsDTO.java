@@ -9,8 +9,8 @@ import com.tvapp.thetvdb.domain.TVDBShowDetails;
 import java.util.List;
 
 public class ShowDetailsDTO {
-    private int serieId;
-    private String serieName;
+    private int id;
+    private String title;
     private String first_air_date;
     private String overview;
     private String poster_path;
@@ -31,8 +31,8 @@ public class ShowDetailsDTO {
     public ShowDetailsDTO(
             MovieDBShowDetails movieDBShowDetails,
             TVDBShowDetails tvdbShowDetails, ExternalSources externalSources) {
-        this.serieId = movieDBShowDetails.getId();
-        this.serieName = movieDBShowDetails.getName();
+        this.id = movieDBShowDetails.getId();
+        this.title = movieDBShowDetails.getName();
         this.first_air_date = movieDBShowDetails.getFirst_air_date();
         this.overview = movieDBShowDetails.getOverview();
         this.poster_path = movieDBShowDetails.getPoster_path();
@@ -49,20 +49,20 @@ public class ShowDetailsDTO {
         this.externalSources = externalSources;
     }
 
-    public int getSerieId() {
-        return serieId;
+    public int getId() {
+        return id;
     }
 
-    public void setSerieId(int serieId) {
-        this.serieId = serieId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getSerieName() {
-        return serieName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSerieName(String serieName) {
-        this.serieName = serieName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getFirst_air_date() {

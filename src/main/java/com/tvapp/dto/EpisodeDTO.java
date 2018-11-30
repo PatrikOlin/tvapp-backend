@@ -11,7 +11,7 @@ public class EpisodeDTO {
     private int episode_number;
     private int movieDBId;
     private int tvDBID;
-    private String name;
+    private String title;
     private String overview;
     private int season_number;
     private String still_path;
@@ -29,7 +29,7 @@ public class EpisodeDTO {
         this.episode_number = movieDBEpisode.getEpisode_number();
         this.movieDBId = movieDBEpisode.getId();
         this.tvDBID = tvdbEpisode.getId();
-        this.name = movieDBEpisode.getName();
+        this.title = movieDBEpisode.getName();
         this.overview = movieDBEpisode.getOverview();
         this.season_number = movieDBEpisode.getSeason_number();
         this.still_path = movieDBEpisode.getStill_path();
@@ -70,12 +70,12 @@ public class EpisodeDTO {
         this.tvDBID = tvDBID;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getOverview() {

@@ -12,13 +12,13 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 
 @Component
-public class ShowResourceAssembler implements ResourceAssembler<Show, Resource<Show>> {
+public class ShowResourceAssembler { //implements ResourceAssembler<Show, Resource<Show>> {
 
 
-    @Override
-    public Resource<Show> toResource(Show show) {
-        return new Resource<Show>(show,
-                ControllerLinkBuilder.linkTo(methodOn(ShowController.class).one(show.getTitle())).withSelfRel(),
-                linkTo(methodOn(ShowController.class).all()).withRel("shows"));
-    }
+//    @Override
+//    public Resource<Show> toResource(Show show) {
+//        return new Resource<Show>(show,
+//                ControllerLinkBuilder.linkTo(methodOn(ShowController.class).one(show.getTitle())).withSelfRel(),
+//                linkTo(methodOn(ShowController.class).all()).withRel("shows"));
+//    }
 }
