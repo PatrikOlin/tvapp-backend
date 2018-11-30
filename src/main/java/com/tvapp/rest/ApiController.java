@@ -15,6 +15,8 @@ import java.util.Map;
 @RequestMapping("/token")
 public class ApiController {
 
+    // TODO: Klassen kan tas bort för inget används här.
+
     private final ApiRepository apiRepository;
     private final TheTVDBDAO theTVDBDAO = new TheTVDBDAO();
 

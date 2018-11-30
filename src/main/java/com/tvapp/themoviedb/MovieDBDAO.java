@@ -47,8 +47,7 @@ public class MovieDBDAO {
         restTemplate = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + id)
-                .queryParam("api_key", apiKey)
-                .queryParam("append_to_response", "external_ids");
+                .queryParam("api_key", apiKey);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -82,9 +81,36 @@ public class MovieDBDAO {
         return response.getBody();
     }
 
-    // TODO: 2018-11-28  
-    public MovieDBEpisode getEpisode() {
-        return null;
+    public MovieDBEpisode getEpisode(int showId, int season, int episode) {
+        restTemplate = new RestTemplate();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + showId + "/season/" + season + "/episode/" + episode)
+                .queryParam("api_key", apiKey);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<MovieDBEpisode> response = restTemplate.exchange(
+                builder.build().toUriString(),
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<MovieDBEpisode>() {
+                }
+        );
+
+        return response.getBody();
+    }
+
+    public ExternalSources getExternalIds(int showId) {
+        restTemplate = new RestTemplate();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + showId + "/external_ids")
+                .queryParam("api_key", apiKey);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        HttpEntity<ExternalSources> response = restTemplate.getForEntity(builder.build().encode().toUri(), ExternalSources.class);
+
+        return response.getBody();
     }
 
 }

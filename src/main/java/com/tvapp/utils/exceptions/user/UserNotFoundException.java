@@ -1,4 +1,4 @@
-package com.tvapp.utils;
+package com.tvapp.utils.exceptions.user;
 
 public class UserNotFoundException extends RuntimeException {
 

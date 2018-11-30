@@ -11,7 +11,6 @@ public class MovieDBShowDetails {
     private String overview;
     private String poster_path;
     private List<MovieDBSeason> seasons;
-    private ExternalSources external_ids;
     private String status;
 
     public MovieDBShowDetails() {
@@ -79,14 +78,6 @@ public class MovieDBShowDetails {
 
     public void setSeasons(List<MovieDBSeason> seasons) {
         this.seasons = seasons;
-    }
-
-    public ExternalSources getExternal_ids() {
-        return external_ids;
-    }
-
-    public void setExternal_ids(ExternalSources external_ids) {
-        this.external_ids = external_ids;
     }
 
     public String getStatus() {
