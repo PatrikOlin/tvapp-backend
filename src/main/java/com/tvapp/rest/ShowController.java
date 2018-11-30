@@ -1,12 +1,9 @@
 package com.tvapp.rest;
 
-import com.tvapp.Constants;
 import com.tvapp.dto.EpisodeDTO;
 import com.tvapp.dto.ShowDetailsDTO;
-import com.tvapp.model.ApiModel;
-import com.tvapp.model.Favorite;
+import com.tvapp.model.Token;
 import com.tvapp.repository.ApiRepository;
-import com.tvapp.repository.FavoriteRepository;
 import com.tvapp.themoviedb.MovieDBDAO;
 import com.tvapp.themoviedb.domain.*;
 import com.tvapp.model.Show;
@@ -16,19 +13,13 @@ import com.tvapp.thetvdb.domain.TVDBEpisode;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
 import com.tvapp.utils.ShowResourceAssembler;
 import com.tvapp.utils.services.TokenService;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -49,22 +40,22 @@ public class ShowController {
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
-    // TODO: Behövs??
-    @GetMapping
-    public Resources<Resource<Show>> all() {
-        List<Resource<Show>> shows = showRepository.findAll().stream()
-                .map(assembler::toResource)
-                .collect(Collectors.toList());
-        return new Resources<>(shows,
-                linkTo(methodOn(ShowController.class).all()).withSelfRel());
-    }
-
-    // TODO: Behövs??
-    @GetMapping("/{name}")
-    public Resource<Show> one(@PathVariable String name) {
-        Show show = showRepository.findByTitle(name);
-        return assembler.toResource(show);
-    }
+//    // TODO: Behövs??
+//    @GetMapping
+//    public Resources<Resource<Show>> all() {
+//        List<Resource<Show>> shows = showRepository.findAll().stream()
+//                .map(assembler::toResource)
+//                .collect(Collectors.toList());
+//        return new Resources<>(shows,
+//                linkTo(methodOn(ShowController.class).all()).withSelfRel());
+//    }
+//
+//    // TODO: Behövs??
+//    @GetMapping("/{name}")
+//    public Resource<Show> one(@PathVariable String name) {
+//        Show show = showRepository.findByTitle(name);
+//        return assembler.toResource(show);
+//    }
 
     /**
      * Search for series
@@ -85,11 +76,11 @@ public class ShowController {
      * @return Details of show
      */
     @GetMapping("/details")
-    public ShowDetailsDTO getShow(@RequestParam Map<String, Integer> param) {
-        int showId = param.get("show_id");
+    public ShowDetailsDTO getShow(@RequestParam Map<String, String> param) {
+        int showId = Integer.parseInt(param.get("show_id"));
         MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
         ExternalSources sources = movieDBDAO.getExternalIds(showId);
-        ApiModel token = tokenService.checkExpirationDateForTVDBToken();
+        Token token = tokenService.checkExpirationDateForTVDBToken();
         TVDBShowDetails tvDB;
 
         try {
@@ -124,7 +115,7 @@ public class ShowController {
 
         MovieDBEpisode movieDBEpisode = movieDBDAO.getEpisode(movieDBId, season, episode);
         TVDBEpisode tvdbEpisode;
-        ApiModel token = tokenService.checkExpirationDateForTVDBToken();
+        Token token = tokenService.checkExpirationDateForTVDBToken();
         try {
             tvdbEpisode = theTVDBDAO.getEpisode(tvDBId, season, episode, token.getToken()).get(0);
         } catch (HttpClientErrorException ex) {

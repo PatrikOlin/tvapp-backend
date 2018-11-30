@@ -1,6 +1,6 @@
 package com.tvapp.thetvdb;
 
-import com.tvapp.model.ApiModel;
+import com.tvapp.model.Token;
 import com.tvapp.themoviedb.domain.MovieDBShowResult;
 import com.tvapp.themoviedb.domain.Result;
 import com.tvapp.thetvdb.domain.*;
@@ -96,26 +96,26 @@ public class TheTVDBDAO {
         return response.getBody().getData();
     }
 
-    public ApiModel refreshToken(ApiModel apiModel) {
+    public com.tvapp.model.Token refreshToken(com.tvapp.model.Token token) {
         restTemplate = new RestTemplate();
 
         headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-        Token body = new Token(
-                apiModel.getApiKey(),
-                apiModel.getUserKey(),
-                apiModel.getUserName());
+        com.tvapp.thetvdb.domain.Token body = new com.tvapp.thetvdb.domain.Token(
+                token.getApiKey(),
+                token.getUserKey(),
+                token.getUserName());
 
         HttpEntity<?> entity = new HttpEntity<>(body, headers);
 
         builder = UriComponentsBuilder.fromHttpUrl(TVDB_LOGIN_URL);
 
-        ResponseEntity<ApiModel> response = restTemplate.exchange(
+        ResponseEntity<Token> response = restTemplate.exchange(
                 builder.build().toUriString(),
                 HttpMethod.POST,
                 entity,
-                ApiModel.class
+                Token.class
         );
 
         return response.getBody();

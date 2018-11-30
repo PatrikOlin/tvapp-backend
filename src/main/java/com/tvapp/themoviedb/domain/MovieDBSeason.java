@@ -5,7 +5,6 @@ import java.util.List;
 public class MovieDBSeason {
 
     private String air_date;
-    private int episode_count;
     private int id;
     private String name;
     private String overview;
@@ -22,14 +21,6 @@ public class MovieDBSeason {
 
     public void setAir_date(String air_date) {
         this.air_date = air_date;
-    }
-
-    public int getEpisode_count() {
-        return episodes.size();
-    }
-
-    public void setEpisode_count() {
-        this.episode_count = episodes.size();
     }
 
     public int getId() {

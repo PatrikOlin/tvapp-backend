@@ -1,6 +1,5 @@
 package com.tvapp.model;
 
-import com.sun.istack.internal.Nullable;
 import com.tvapp.dto.ShowDetailsDTO;
 
 import javax.persistence.*;
@@ -49,8 +48,8 @@ public class Show {
     }
 
     public Show(ShowDetailsDTO show) {
-        this.id = show.getSerieId();
-        this.title = show.getSerieName();
+        this.id = show.getId();
+        this.title = show.getTitle();
         this.poster_path = show.getPoster_path();
         this.overview = show.getOverview();
         this.status = show.getStatus();

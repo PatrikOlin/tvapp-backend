@@ -98,6 +98,7 @@ public class UserController {
 
     }
 
+    // TODO: encode id som skickas tillbaka
     /**
      * Creates a new user in database, if
      * user already exist throws a 401 Unauthorized
@@ -105,7 +106,7 @@ public class UserController {
      * @param header to map header
      * @return the user
      */
-    @PostMapping
+    @PostMapping("/login")
     public UserDetails createUser(@RequestHeader Map<String, String> header) {
         String email = header.get("email");
         String password = Base64Service.decodePassword(header.get("password"));
@@ -117,6 +118,7 @@ public class UserController {
         return userRepository.save(new UserDetails(email, password));
     }
 
+    // TODO: base64encode id and psw in headern returnera 200
     /**
      * Updates a existing user in database
      *
@@ -132,7 +134,7 @@ public class UserController {
         return userRepository.save(userDetails);
     }
 
-    // TODO: Kanske inte behövs i våran version. kan var något som kommer senare...
+    // TODO: Kanske inte behövs i våran version. kan vara något som kommer senare...
     /**
      * Delete an exiating user in th database
      *
