@@ -46,7 +46,6 @@ public class WatchListController {
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
-    // TODO: Uppdatera showobjektet om det är ett nytt avnsitt
     /**
      * Return users watchlist
      *
@@ -55,35 +54,38 @@ public class WatchListController {
      */
     @GetMapping
     public List<Show> getWatchList(@RequestHeader Map<String, String> header) {
-        int userId = Integer.parseInt(header.get("user_id"));
-        return showRepository.findAllShowsByUserId(userId);
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
+        List<Show> shows = showRepository.findAllShowsByUserId(userId);
+
+        for (Show show : shows) {
+            Show compareShow = getShow(show.getId());
+            if (show.getId() == compareShow.getId()) {
+                if ((!show.getStatus().equalsIgnoreCase(compareShow.getStatus()) ||
+                        (!show.getNextAirDate().equalsIgnoreCase(compareShow.getNextAirDate())))) {
+                    show = compareShow;
+                    showRepository.save(show);
+                }
+            }
+        }
+
+        return shows;
     }
 
     /**
      * Add show to watchlist in database
      *
      * @param body to map id
+     * @param header
      * @return a show
      */
     @PostMapping
-    public Show addToWatchList(@RequestBody Map<String, Integer> body) {
+    public Show addToWatchList(@RequestBody Map<String, Integer> body,
+                               @RequestHeader Map<String, String> header) {
         int showId = body.get("show_id");
-        int userId = body.get("user_id");
-        Token token = tokenService.checkExpirationDateForTVDBToken();
-        TVDBShowDetails tvDB;
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
         WatchList fav = null;
 
-        MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
-        ExternalSources sources = movieDBDAO.getExternalIds(showId);
-        try {
-            tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
-        } catch (HttpClientErrorException ex) {
-            token = tokenService.refreshTokenForTVDB(token);
-            tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
-        }
-
-        ShowDetailsDTO showDTO = new ShowDetailsDTO(movieDB, tvDB, sources);
-        Show show = showRepository.save(new Show(showDTO));
+        Show show = showRepository.save(getShow(showId));
         if (watchListRepository.getWatchListByUserIdLikeAndShowIdLike(userId, showId) == null) {
             fav = watchListRepository.save(new WatchList(userId, showId));
         }
@@ -94,8 +96,9 @@ public class WatchListController {
         return show;
     }
 
-    // TODO: Ändra om till header för user_id och base64:a lägga till filter på /api (Exception, swagger)
+    // TODO: Lägga till filter på /api (Exception, swagger)
     // TODO: Få upp skiten på servern.
+
     /**
      * Removes a show from favorite and episodes
      * linked to the favorite id. Checks also if unique show.
@@ -108,7 +111,7 @@ public class WatchListController {
     public void removeFromWatchList(@RequestParam Map<String, String> param,
                                     @RequestHeader Map<String, String> header) {
         int showId = Integer.parseInt(param.get("show_id"));
-        int userId = Integer.parseInt(Base64Service.decodePassword(header.get("user_id")));
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
 
         WatchList watchList = watchListRepository.getWatchListByUserIdLikeAndShowIdLike(userId, showId);
         List<Episode> episodes = episodeRepository.findAllByFavoriteId(watchList.getId());
@@ -128,21 +131,39 @@ public class WatchListController {
      * @param body to map key and value.
      */
     @PostMapping("/episode")
-    public void watchedEpisodeList(@RequestBody Map<String, Integer> body) {
+    public void watchedEpisodeList(@RequestBody Map<String, Integer> body, @RequestHeader Map<String, String> header) {
         int showId = body.get("show_id");
-        int userId = body.get("user_id");
         int season = body.get("season");
         int episode = body.get("episode");
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
 
         WatchList watchList = watchListRepository.getWatchListByUserIdLikeAndShowIdLike(userId, showId);
         Episode newEpisode = new Episode(watchList.getId(), season, episode);
         List<Episode> episodes = episodeRepository.findAllByFavoriteId(watchList.getId());
 
-        for (Episode episodeToCheck: episodes) {
+        for (Episode episodeToCheck : episodes) {
             if (newEpisode.getSeasonNumber() == episodeToCheck.getSeasonNumber() &&
-            newEpisode.getEpisodeNumber() == episodeToCheck.getEpisodeNumber()) return;
+                    newEpisode.getEpisodeNumber() == episodeToCheck.getEpisodeNumber()) return;
         }
 
         episodeRepository.save(newEpisode);
+    }
+
+    private Show getShow(int showId) {
+        Token token = tokenService.checkExpirationDateForTVDBToken();
+        TVDBShowDetails tvDB;
+
+        MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
+        ExternalSources sources = movieDBDAO.getExternalIds(showId);
+        try {
+            tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
+        } catch (HttpClientErrorException ex) {
+            token = tokenService.refreshTokenForTVDB(token);
+            tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
+        }
+
+        ShowDetailsDTO showDTO = new ShowDetailsDTO(movieDB, tvDB, sources);
+
+        return new Show(showDTO);
     }
 }

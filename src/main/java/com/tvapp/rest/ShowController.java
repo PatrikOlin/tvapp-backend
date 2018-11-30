@@ -7,7 +7,6 @@ import com.tvapp.repository.ApiRepository;
 import com.tvapp.repository.WatchListRepository;
 import com.tvapp.themoviedb.MovieDBDAO;
 import com.tvapp.themoviedb.domain.*;
-import com.tvapp.model.Show;
 import com.tvapp.repository.ShowRepository;
 import com.tvapp.thetvdb.TheTVDBDAO;
 import com.tvapp.thetvdb.domain.TVDBEpisode;
@@ -69,8 +68,7 @@ public class ShowController {
     public ShowDetailsDTO getShow(@RequestParam Map<String, String> param,
                                   @RequestHeader Map<String, String> header) {
         int showId = Integer.parseInt(param.get("show_id"));
-//        int userId = Integer.parseInt(Base64Service.decodePassword(header.get("user_id")));
-        int userId = Integer.parseInt(header.get("user_id"));
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
         MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
         ExternalSources sources = movieDBDAO.getExternalIds(showId);
         Token token = tokenService.checkExpirationDateForTVDBToken();

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Base64Service {
 
-    public static String decodePassword(String password) {
+    public static String decodeData(String password) {
         byte[] decodedBytes;
         try {
 
