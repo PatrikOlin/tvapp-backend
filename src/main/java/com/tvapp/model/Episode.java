@@ -12,7 +12,7 @@ public class Episode {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "favorite_id")
+    @Column(name = "watchlist_id")
     private int favoriteId;
 
     @Column(name = "season_no")

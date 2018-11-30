@@ -24,8 +24,10 @@ public class ShowDetailsDTO {
     private String imdbId;
     private List<MovieDBSeason> seasons;
     private ExternalSources externalSources;
+    private boolean OnWatchList;
 
     public ShowDetailsDTO() {
+        this.OnWatchList = false;
     }
 
     public ShowDetailsDTO(
@@ -47,6 +49,7 @@ public class ShowDetailsDTO {
         this.siteRatingCount = tvdbShowDetails.getSiteRatingCount();
         this.imdbId = tvdbShowDetails.getImdbId();
         this.externalSources = externalSources;
+        this.OnWatchList = false;
     }
 
     public int getId() {
@@ -167,5 +170,13 @@ public class ShowDetailsDTO {
 
     public void setExternalSources(ExternalSources externalSources) {
         this.externalSources = externalSources;
+    }
+
+    public boolean getOnWatchList() {
+        return OnWatchList;
+    }
+
+    public void setOnWatchList(boolean onWatchList) {
+        OnWatchList = onWatchList;
     }
 }

@@ -3,8 +3,8 @@ package com.tvapp.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "favorites")
-public class Favorite {
+@Table(name = "watchlist")
+public class WatchList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +14,10 @@ public class Favorite {
 
     private int showId;
 
-    public Favorite() {
+    public WatchList() {
     }
 
-    public Favorite(int userId, int showId) {
+    public WatchList(int userId, int showId) {
         this.userId = userId;
         this.showId = showId;
     }

@@ -4,6 +4,7 @@ import com.tvapp.dto.EpisodeDTO;
 import com.tvapp.dto.ShowDetailsDTO;
 import com.tvapp.model.Token;
 import com.tvapp.repository.ApiRepository;
+import com.tvapp.repository.WatchListRepository;
 import com.tvapp.themoviedb.MovieDBDAO;
 import com.tvapp.themoviedb.domain.*;
 import com.tvapp.model.Show;
@@ -12,6 +13,7 @@ import com.tvapp.thetvdb.TheTVDBDAO;
 import com.tvapp.thetvdb.domain.TVDBEpisode;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
 import com.tvapp.utils.ShowResourceAssembler;
+import com.tvapp.utils.services.Base64Service;
 import com.tvapp.utils.services.TokenService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -27,35 +29,23 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 public class ShowController {
 
     private final ShowRepository showRepository;
+    private final WatchListRepository watchListRepository;
     private final ShowResourceAssembler assembler;
     private MovieDBDAO movieDBDAO;
     private TheTVDBDAO theTVDBDAO;
     private TokenService tokenService;
 
-    ShowController(ShowRepository showRepository, ApiRepository apiRepository, ShowResourceAssembler assembler) {
+    ShowController(ShowRepository showRepository,
+                   WatchListRepository watchListRepository,
+                   ApiRepository apiRepository,
+                   ShowResourceAssembler assembler) {
         this.showRepository = showRepository;
+        this.watchListRepository = watchListRepository;
         this.assembler = assembler;
         this.tokenService = new TokenService(apiRepository);
         theTVDBDAO = new TheTVDBDAO();
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
-
-//    // TODO: Behövs??
-//    @GetMapping
-//    public Resources<Resource<Show>> all() {
-//        List<Resource<Show>> shows = showRepository.findAll().stream()
-//                .map(assembler::toResource)
-//                .collect(Collectors.toList());
-//        return new Resources<>(shows,
-//                linkTo(methodOn(ShowController.class).all()).withSelfRel());
-//    }
-//
-//    // TODO: Behövs??
-//    @GetMapping("/{name}")
-//    public Resource<Show> one(@PathVariable String name) {
-//        Show show = showRepository.findByTitle(name);
-//        return assembler.toResource(show);
-//    }
 
     /**
      * Search for series
@@ -76,8 +66,11 @@ public class ShowController {
      * @return Details of show
      */
     @GetMapping("/details")
-    public ShowDetailsDTO getShow(@RequestParam Map<String, String> param) {
+    public ShowDetailsDTO getShow(@RequestParam Map<String, String> param,
+                                  @RequestHeader Map<String, String> header) {
         int showId = Integer.parseInt(param.get("show_id"));
+//        int userId = Integer.parseInt(Base64Service.decodePassword(header.get("user_id")));
+        int userId = Integer.parseInt(header.get("user_id"));
         MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
         ExternalSources sources = movieDBDAO.getExternalIds(showId);
         Token token = tokenService.checkExpirationDateForTVDBToken();
@@ -90,7 +83,11 @@ public class ShowController {
             tvDB = theTVDBDAO.showDetails(sources.getTvdb_id(), token.getToken());
         }
 
-        return new ShowDetailsDTO(movieDB, tvDB, sources);
+        ShowDetailsDTO showDetails = new ShowDetailsDTO(movieDB, tvDB, sources);
+        int OnWatchList = watchListRepository.countByUserIdAndShowId(userId, showId);
+        showDetails.setOnWatchList(OnWatchList == 1 ? true : false);
+
+        return showDetails;
     }
 
     @GetMapping("/details/season")
@@ -124,29 +121,5 @@ public class ShowController {
         }
 
         return new EpisodeDTO(movieDBEpisode, tvdbEpisode);
-    }
-
-    // TODO: Behövs??
-    @PostMapping
-    public Show create(@RequestBody Map<String, String> body) {
-        String name = body.get("name");
-        return showRepository.save(new Show(name));
-    }
-
-    // TODO: Ändras?? Kanske inte behövs som resurs utan endast private
-    @PutMapping("/{id}")
-    public Show update(@PathVariable String id, @RequestBody Map<String, String> body) {
-        int showId = Integer.parseInt(id);
-        Show show = showRepository.findOne(showId);
-        show.setTitle(body.get("name"));
-        return showRepository.save(show);
-    }
-
-    // TODO: Ändras?? Kanske inte behövs som resurs utan endast som private
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable String id) {
-        int seriesId = Integer.parseInt(id);
-        showRepository.delete(seriesId);
-        return true;
     }
 }
