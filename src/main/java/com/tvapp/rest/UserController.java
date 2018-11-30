@@ -44,6 +44,7 @@ public class UserController {
         this.assembler = assembler;
     }
 
+    // TODO: Säkra/osäkra endpoints
     // TODO: Inte nödvändig
     /**
      * Retrieving all users in database
@@ -83,11 +84,12 @@ public class UserController {
      */
     @GetMapping("/login")
     public int userLogin(@RequestHeader Map<String, String> header) {
-        String password = Base64Service.decodePassword(header.get("password"));
-        UserDetails userDetails = userRepository.findByEmail(header.get("email"));
+        String login = header.get("authorization").replace("Basic ", "");
+        String[] userKey = Base64Service.decodeLogin(login);
+        UserDetails userDetails = userRepository.findByEmail(userKey[0]);
 
         if (userDetails != null) {
-            if (BCryptService.checkPassword(password, userDetails.getPassword())) {
+            if (BCryptService.checkPassword(userKey[1], userDetails.getPassword())) {
                 return userDetails.getId();
             } else {
                 throw new InvalidUserException();

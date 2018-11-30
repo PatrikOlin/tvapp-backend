@@ -28,7 +28,6 @@ public class TheTVDBDAO {
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
     }
 
-    // TODO: Används ej
     /**
      * Search for a show
      * @param search query
