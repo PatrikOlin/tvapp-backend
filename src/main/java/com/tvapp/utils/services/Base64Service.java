@@ -27,4 +27,9 @@ public class Base64Service {
 
         return new String(decodedBytes).split(":");
     }
+
+    public static String encodeData(String data) {
+        byte[] encodedBytes = data.getBytes();
+        return Base64.getEncoder().encodeToString(encodedBytes);
+    }
 }
