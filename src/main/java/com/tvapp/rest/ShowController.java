@@ -46,6 +46,8 @@ public class ShowController {
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
+
+    // TODO: Sortera bort shows som saknar bild och titel?
     /**
      * Search for series
      *

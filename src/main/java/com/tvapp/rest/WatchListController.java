@@ -46,6 +46,7 @@ public class WatchListController {
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
+    // TODO: Sortera listan efter next episode air date?
     /**
      * Return users watchlist
      *
