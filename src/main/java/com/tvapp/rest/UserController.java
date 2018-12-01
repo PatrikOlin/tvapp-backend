@@ -22,6 +22,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  *
  * @author Patrik Holmkvist & Patrik Olin
  */
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/user")

@@ -91,9 +91,9 @@ public class ShowController {
     }
 
     @GetMapping("/details/season")
-    public MovieDBSeason getSeason(@RequestBody Map<String, String> body) {
-        String id = body.get("show_id");
-        String season = body.get("season");
+    public MovieDBSeason getSeason(@RequestParam Map<String, String> param) {
+        String id = param.get("show_id");
+        String season = param.get("season");
         return movieDBDAO.ShowSeason(id, season);
     }
 
