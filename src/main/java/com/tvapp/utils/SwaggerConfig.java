@@ -18,10 +18,10 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
-    private static final String SWAGGER_API_VERSION = "1.0";
-    private static final String LICENSE_TEXT = "License";
-    private static final String title = "TVAPPS REST API";
-    private static final String description = "RESTful API for Tvapp";
+    private static final String SWAGGER_API_VERSION = "1.2";
+    private static final String LICENSE_TEXT = "License TVAPP 1.0";
+    private static final String title = "ShowT:me REST API";
+    private static final String description = "RESTful API for ShowT:me";
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
@@ -33,13 +33,39 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     }
 
     @Bean
-    public Docket userApi() {
+    public Docket showApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Shows Controller")
                 .apiInfo(apiInfo())
                 .pathMapping("/")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.tvapp.rest"))
-                .paths(regex("/user.*"))
+                .paths(regex("/shows.*"))
+                .build();
+    }
+
+
+    @Bean
+    public Docket watchlistApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Watchlist Controller")
+                .apiInfo(apiInfo())
+                .pathMapping("/")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.tvapp.rest"))
+                .paths(regex("/watchlist.*"))
+                .build();
+    }
+
+    @Bean
+    public Docket loginApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Login Controller")
+                .apiInfo(apiInfo())
+                .pathMapping("/")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.tvapp.rest"))
+                .paths(regex("/login.*"))
                 .build();
     }
 

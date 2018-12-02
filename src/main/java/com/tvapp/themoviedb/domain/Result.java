@@ -1,8 +1,12 @@
 package com.tvapp.themoviedb.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Result {
 
+    @ApiModelProperty(notes = "Id of the show")
     private Integer id;
+    @ApiModelProperty(notes = "Title of show")
     private String name;
     private String poster_path;
     private String overview;

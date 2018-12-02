@@ -15,6 +15,9 @@ import com.tvapp.utils.ShowResourceAssembler;
 import com.tvapp.utils.constants.ReqConst;
 import com.tvapp.utils.services.Base64Service;
 import com.tvapp.utils.services.TokenService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -26,6 +29,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/shows")
+@Api(description = "Operations pertaining shows in ShowTime")
 public class ShowController {
 
     private final ShowRepository showRepository;
@@ -54,7 +58,8 @@ public class ShowController {
      * @param param searchQuery
      * @return List of search result
      */
-    @GetMapping("/search")
+    @ApiOperation(value = "Search for a show", response = List.class)
+    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = "application/json")
     public List<Result> search(@RequestParam Map<String, String> param) {
         String searchTerm = param.get(ReqConst.SEARCH);
         List<Result> resultList = movieDBDAO.searchShows(searchTerm);
