@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Result {
 
-    private int id;
+    private Integer id;
     private String name;
     private String poster_path;
     private String overview;
@@ -12,11 +12,11 @@ public class Result {
     public Result() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,5 +42,21 @@ public class Result {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public boolean HalfOfInfoIsMissing() {
+        if (this.getId() == null || this.getName() == null || this.getName().isEmpty()) return true;
+        int count = 0;
+        if (this.getPoster_path() == null || this.getPoster_path().isEmpty()) {
+            count++;
+        }
+        if (this.getOverview() == null || this.getOverview().isEmpty()) {
+            count++;
+        }
+
+        if (count == 2) {
+            return true;
+        }
+        return false;
     }
 }

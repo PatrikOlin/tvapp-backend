@@ -1,9 +1,6 @@
 package com.tvapp.themoviedb;
 
-import com.tvapp.themoviedb.domain.MovieDBShowResult;
-import com.tvapp.themoviedb.domain.Result;
-import com.tvapp.themoviedb.domain.MovieDBSeason;
-import com.tvapp.themoviedb.domain.MovieDBShowDetails;
+import com.tvapp.themoviedb.domain.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -11,7 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
-import static com.tvapp.Constants.*;
+import static com.tvapp.utils.constants.UrlConstants.*;
 public class MovieDBDAO {
 
     private RestTemplate restTemplate;
@@ -46,12 +43,11 @@ public class MovieDBDAO {
         return response.getBody().getResults();
     }
 
-    public MovieDBShowDetails ShowDetails(String id) {
+    public MovieDBShowDetails ShowDetails(int id) {
         restTemplate = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + id)
-                .queryParam("api_key", apiKey)
-                .queryParam("append_to_response", "external_ids");
+                .queryParam("api_key", apiKey);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -81,6 +77,38 @@ public class MovieDBDAO {
                 new ParameterizedTypeReference<MovieDBSeason>() {
                 }
         );
+
+        return response.getBody();
+    }
+
+    public MovieDBEpisode getEpisode(int showId, int season, int episode) {
+        restTemplate = new RestTemplate();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + showId + "/season/" + season + "/episode/" + episode)
+                .queryParam("api_key", apiKey);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<MovieDBEpisode> response = restTemplate.exchange(
+                builder.build().toUriString(),
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<MovieDBEpisode>() {
+                }
+        );
+
+        return response.getBody();
+    }
+
+    public ExternalSources getExternalIds(int showId) {
+        restTemplate = new RestTemplate();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(MOVIEDB_SHOW_DETAILS_URL + showId + "/external_ids")
+                .queryParam("api_key", apiKey);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        HttpEntity<ExternalSources> response = restTemplate.getForEntity(builder.build().encode().toUri(), ExternalSources.class);
 
         return response.getBody();
     }

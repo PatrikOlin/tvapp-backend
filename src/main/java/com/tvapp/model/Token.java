@@ -5,9 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "api")
-public class ApiModel {
-
-    // TODO: Nytt namn på klassen
+public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,10 +33,10 @@ public class ApiModel {
     @Column(length = 50, name = "user_key")
     private String userKey;
 
-    public ApiModel() {
+    public Token() {
     }
 
-    public ApiModel(String name, String token, String userName, String password, String apiKey, String userKey) {
+    public Token(String name, String token, String userName, String password, String apiKey, String userKey) {
         this.name = name;
         this.token = token;
         this.userName = userName;

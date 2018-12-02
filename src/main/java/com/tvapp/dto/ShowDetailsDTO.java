@@ -1,5 +1,6 @@
 package com.tvapp.dto;
 
+import com.tvapp.themoviedb.domain.ExternalSources;
 import com.tvapp.themoviedb.domain.MovieDBEpisode;
 import com.tvapp.themoviedb.domain.MovieDBSeason;
 import com.tvapp.themoviedb.domain.MovieDBShowDetails;
@@ -8,32 +9,32 @@ import com.tvapp.thetvdb.domain.TVDBShowDetails;
 import java.util.List;
 
 public class ShowDetailsDTO {
-    // The MovieDB
-    private int serieId;
-    private String serieName;
+    private int id;
+    private String title;
     private String first_air_date;
     private String overview;
     private String poster_path;
     private MovieDBEpisode last_episode_to_air;
     private MovieDBEpisode next_episode_to_air;
     private String status;
-    // The TVDB
     private String airsDayOfWeek;
     private String airsTime;
     private double siteRating;
     private int siteRatingCount;
     private String imdbId;
-    // The MovieDB
     private List<MovieDBSeason> seasons;
+    private ExternalSources externalSources;
+    private boolean OnWatchList;
 
     public ShowDetailsDTO() {
+        this.OnWatchList = false;
     }
 
     public ShowDetailsDTO(
             MovieDBShowDetails movieDBShowDetails,
-            TVDBShowDetails tvdbShowDetails) {
-        this.serieId = movieDBShowDetails.getId();
-        this.serieName = movieDBShowDetails.getName();
+            TVDBShowDetails tvdbShowDetails, ExternalSources externalSources) {
+        this.id = movieDBShowDetails.getId();
+        this.title = movieDBShowDetails.getName();
         this.first_air_date = movieDBShowDetails.getFirst_air_date();
         this.overview = movieDBShowDetails.getOverview();
         this.poster_path = movieDBShowDetails.getPoster_path();
@@ -47,22 +48,24 @@ public class ShowDetailsDTO {
         this.siteRating = tvdbShowDetails.getSiteRating();
         this.siteRatingCount = tvdbShowDetails.getSiteRatingCount();
         this.imdbId = tvdbShowDetails.getImdbId();
+        this.externalSources = externalSources;
+        this.OnWatchList = false;
     }
 
-    public int getSerieId() {
-        return serieId;
+    public int getId() {
+        return id;
     }
 
-    public void setSerieId(int serieId) {
-        this.serieId = serieId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getSerieName() {
-        return serieName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSerieName(String serieName) {
-        this.serieName = serieName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getFirst_air_date() {
@@ -159,5 +162,21 @@ public class ShowDetailsDTO {
 
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
+    }
+
+    public ExternalSources getExternalSources() {
+        return externalSources;
+    }
+
+    public void setExternalSources(ExternalSources externalSources) {
+        this.externalSources = externalSources;
+    }
+
+    public boolean getOnWatchList() {
+        return OnWatchList;
+    }
+
+    public void setOnWatchList(boolean onWatchList) {
+        OnWatchList = onWatchList;
     }
 }

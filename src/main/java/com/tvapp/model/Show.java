@@ -48,12 +48,16 @@ public class Show {
     }
 
     public Show(ShowDetailsDTO show) {
-        this.id = show.getSerieId();
-        this.title = show.getSerieName();
+        this.id = show.getId();
+        this.title = show.getTitle();
         this.poster_path = show.getPoster_path();
         this.overview = show.getOverview();
         this.status = show.getStatus();
-        this.nextAirDate = show.getNext_episode_to_air().getAir_date();
+        if (show.getNext_episode_to_air() == null) {
+            this.nextAirDate = "no info about next episode";
+        } else {
+            this.nextAirDate = show.getNext_episode_to_air().getAir_date();
+        }
     }
 
     public Show(String title) {

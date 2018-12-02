@@ -1,7 +1,8 @@
 package com.tvapp.model;
 
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import com.tvapp.utils.services.BCryptService;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,11 +30,6 @@ public class UserDetails {
         this.setPassword(password);
     }
 
-    public UserDetails(int id, String email, String password) {
-        this.setId(id);
-        this.setEmail(email);
-        this.setPassword(password);
-    }
 
     public int getId() {
         return id;
@@ -48,7 +44,7 @@ public class UserDetails {
     }
 
     public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = BCryptService.hashPassword(password);
     }
 
     public String getEmail() {

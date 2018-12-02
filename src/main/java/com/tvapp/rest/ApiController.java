@@ -1,8 +1,8 @@
 package com.tvapp.rest;
 
 import com.sun.istack.internal.Nullable;
-import com.tvapp.Constants;
-import com.tvapp.model.ApiModel;
+import com.tvapp.utils.constants.UrlConstants;
+import com.tvapp.model.Token;
 import com.tvapp.repository.ApiRepository;
 import com.tvapp.thetvdb.TheTVDBDAO;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +23,12 @@ public class ApiController {
     }
 
     @GetMapping
-    public List<ApiModel> getAll() {
+    public List<Token> getAll() {
         return apiRepository.findAll();
     }
 
     @PostMapping
-    public ApiModel create(@RequestBody Map<String, String> body) {
+    public Token create(@RequestBody Map<String, String> body) {
         String name = body.get("name");
         @Nullable
         String token = body.get("token");
@@ -41,12 +41,12 @@ public class ApiController {
         @Nullable
         String userKey = body.get("user_key");
 
-        return apiRepository.save(new ApiModel(name, token, userName, password, apiKey, userKey));
+        return apiRepository.save(new Token(name, token, userName, password, apiKey, userKey));
     }
 
     @GetMapping("/refresh")
-    public ApiModel refreshToken() {
-        ApiModel apiToken = apiRepository.findByName(Constants.THE_TV_DB);
+    public Token refreshToken() {
+        Token apiToken = apiRepository.findByName(UrlConstants.THE_TV_DB);
         apiToken.setToken(theTVDBDAO.refreshToken(apiToken).getToken());
         apiToken.setCreationDate(new Date());
         apiRepository.save(apiToken);
