@@ -102,14 +102,14 @@ public class ShowController {
     /**
      * Send request to gather episode information
      *
-     * @param body to map id, season and episode
+     * @param param to map id, season and episode
      * @return a EpisodeDTO
      */
     @GetMapping("/details/episode")
-    public EpisodeDTO getDetailedEpisode(@RequestBody Map<String, Integer> body) {
-        int movieDBId = body.get(ReqConst.SHOWID);
-        int season = body.get(ReqConst.SEASON);
-        int episode = body.get(ReqConst.EPISODE);
+    public EpisodeDTO getDetailedEpisode(@RequestParam Map<String, String> param) {
+        int movieDBId = Integer.parseInt(param.get(ReqConst.SHOWID));
+        int season = Integer.parseInt(param.get(ReqConst.SEASON));
+        int episode = Integer.parseInt(param.get(ReqConst.EPISODE));
         int tvDBId = movieDBDAO.getExternalIds(movieDBId).getTvdb_id();
 
         MovieDBEpisode movieDBEpisode = movieDBDAO.getEpisode(movieDBId, season, episode);
