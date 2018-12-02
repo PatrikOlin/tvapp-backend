@@ -71,7 +71,7 @@ public class WatchListController {
             }
         }
 
-        Collections.sort(shows, (o1, o2) -> {
+        shows.sort((o1, o2) -> {
             if (o1.getNextAirDate() == null || o2.getNextAirDate() == null)
                 return -1;
 
@@ -85,7 +85,7 @@ public class WatchListController {
      * Add show to watchlist in database
      *
      * @param body to map id
-     * @param header
+     * @param header to map user_id
      * @return a show
      */
     @PostMapping
@@ -106,7 +106,8 @@ public class WatchListController {
         return show;
     }
 
-    // TODO: Lägga till filter på /api (Exception, swagger)
+    // TODO: Exception, swagger
+    // TODO: kolla över datum hantering, skickar nu i millisekunder.
     // TODO: Få upp skiten på servern.
 
     /**
@@ -114,8 +115,8 @@ public class WatchListController {
      * linked to the favorite id. Checks also if unique show.
      * If its true then it delete it from shows also.
      *
-     * @param param
-     * @param header
+     * @param param to map show_id
+     * @param header to map user_id
      */
     @DeleteMapping
     public void removeFromWatchList(@RequestParam Map<String, String> param,
@@ -125,7 +126,7 @@ public class WatchListController {
 
         WatchList watchList = watchListRepository.getWatchListByUserIdLikeAndShowIdLike(userId, showId);
         List<Episode> episodes = episodeRepository.findAllByFavoriteId(watchList.getId());
-        episodes.forEach(episode -> episodeRepository.delete(episode));
+        episodeRepository.delete(episodes);
         if (watchListRepository.countByShowId(showId) == 1) {
             watchListRepository.delete(watchList);
             Show show = showRepository.findOne(showId);
