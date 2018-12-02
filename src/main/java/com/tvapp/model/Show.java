@@ -3,6 +3,7 @@ package com.tvapp.model;
 import com.tvapp.dto.ShowDetailsDTO;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "shows")
@@ -22,8 +23,9 @@ public class Show {
     @Column(name = "status_of_show")
     private String status;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "next_air_date")
-    private String nextAirDate;
+    private Date nextAirDate;
 
     public Show() {
     }
@@ -54,7 +56,7 @@ public class Show {
         this.overview = show.getOverview();
         this.status = show.getStatus();
         if (show.getNext_episode_to_air() == null) {
-            this.nextAirDate = "no info about next episode";
+            this.nextAirDate = null;
         } else {
             this.nextAirDate = show.getNext_episode_to_air().getAir_date();
         }
@@ -104,11 +106,11 @@ public class Show {
         this.status = status;
     }
 
-    public String getNextAirDate() {
+    public Date getNextAirDate() {
         return nextAirDate;
     }
 
-    public void setNextAirDate(String nextAirDate) {
+    public void setNextAirDate(Date nextAirDate) {
         this.nextAirDate = nextAirDate;
     }
 }

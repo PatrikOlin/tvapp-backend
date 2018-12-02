@@ -47,7 +47,7 @@ public class ShowController {
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
-    
+
     /**
      * Search for series
      *

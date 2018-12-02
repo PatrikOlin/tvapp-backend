@@ -1,5 +1,6 @@
 package com.tvapp.thetvdb.domain;
 
+import java.util.Date;
 import java.util.List;
 
 public class TVDBEpisode {
@@ -13,7 +14,7 @@ public class TVDBEpisode {
     private List<String> directors; //(Array[string], optional),
     private String episodeName; //(string, optional),
     private String filename; //(string, optional),
-    private String firstAired; //(string, optional),
+    private Date firstAired; //(string, optional),
     private List<String> guestStars; //(Array[string], optional),
     private int id; //(integer, optional),
     private String imdbId; //(string, optional),
@@ -114,11 +115,11 @@ public class TVDBEpisode {
         this.filename = filename;
     }
 
-    public String getFirstAired() {
+    public Date getFirstAired() {
         return firstAired;
     }
 
-    public void setFirstAired(String firstAired) {
+    public void setFirstAired(Date firstAired) {
         this.firstAired = firstAired;
     }
 

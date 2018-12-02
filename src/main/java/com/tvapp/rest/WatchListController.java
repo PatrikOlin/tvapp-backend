@@ -20,6 +20,8 @@ import com.tvapp.utils.services.TokenService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +49,10 @@ public class WatchListController {
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
-    // TODO: Sortera listan efter next episode air date?
     /**
      * Return users watchlist
      *
-     * @param header user_id
+     * @param header to map user_id
      * @return List of shows
      */
     @GetMapping
@@ -63,12 +64,19 @@ public class WatchListController {
             Show compareShow = getShow(show.getId());
             if (show.getId() == compareShow.getId()) {
                 if ((!show.getStatus().equalsIgnoreCase(compareShow.getStatus()) ||
-                        (!show.getNextAirDate().equalsIgnoreCase(compareShow.getNextAirDate())))) {
+                        (show.getNextAirDate() != compareShow.getNextAirDate()))) {
                     show = compareShow;
                     showRepository.save(show);
                 }
             }
         }
+
+        Collections.sort(shows, (o1, o2) -> {
+            if (o1.getNextAirDate() == null || o2.getNextAirDate() == null)
+                return -1;
+
+            return o1.getNextAirDate().compareTo(o2.getNextAirDate());
+        });
 
         return shows;
     }

@@ -1,10 +1,11 @@
 package com.tvapp.themoviedb.domain;
 
+import java.util.Date;
 import java.util.List;
 
 public class MovieDBSeason {
 
-    private String air_date;
+    private Date air_date;
     private int id;
     private String name;
     private String overview;
@@ -15,11 +16,11 @@ public class MovieDBSeason {
     public MovieDBSeason() {
     }
 
-    public String getAir_date() {
+    public Date getAir_date() {
         return air_date;
     }
 
-    public void setAir_date(String air_date) {
+    public void setAir_date(Date air_date) {
         this.air_date = air_date;
     }
 

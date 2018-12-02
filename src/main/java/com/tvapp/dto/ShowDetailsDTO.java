@@ -6,12 +6,13 @@ import com.tvapp.themoviedb.domain.MovieDBSeason;
 import com.tvapp.themoviedb.domain.MovieDBShowDetails;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
 
+import java.util.Date;
 import java.util.List;
 
 public class ShowDetailsDTO {
     private int id;
     private String title;
-    private String first_air_date;
+    private Date first_air_date;
     private String overview;
     private String poster_path;
     private MovieDBEpisode last_episode_to_air;
@@ -68,11 +69,11 @@ public class ShowDetailsDTO {
         this.title = title;
     }
 
-    public String getFirst_air_date() {
+    public Date getFirst_air_date() {
         return first_air_date;
     }
 
-    public void setFirst_air_date(String first_air_date) {
+    public void setFirst_air_date(Date first_air_date) {
         this.first_air_date = first_air_date;
     }
 

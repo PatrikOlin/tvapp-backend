@@ -18,7 +18,7 @@ public class ShowResourceAssembler { //implements ResourceAssembler<Show, Resour
 //    @Override
 //    public Resource<Show> toResource(Show show) {
 //        return new Resource<Show>(show,
-//                ControllerLinkBuilder.linkTo(methodOn(ShowController.class).one(show.getTitle())).withSelfRel(),
+//                ControllerLinkBuilder.linkTo(methodOn(ShowController.class).one(show.getName())).withSelfRel(),
 //                linkTo(methodOn(ShowController.class).all()).withRel("shows"));
 //    }
 }

@@ -1,7 +1,5 @@
 package com.tvapp.themoviedb.domain;
 
-import java.util.List;
-
 public class Result {
 
     private Integer id;
