@@ -2,12 +2,14 @@ package com.tvapp.rest;
 
 import com.tvapp.model.UserDetails;
 import com.tvapp.repository.UserRepository;
+import com.tvapp.utils.constants.ReqConst;
 import com.tvapp.utils.exceptions.user.InvalidUserException;
 import com.tvapp.utils.exceptions.user.UserExistException;
 import com.tvapp.utils.services.BCryptService;
 import com.tvapp.utils.services.Base64Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,7 +31,7 @@ public class LoginController {
      */
     @GetMapping
     public String userLogin(@RequestHeader Map<String, String> header) {
-        String login = header.get("authorization").replace("Basic ", "");
+        String login = header.get(ReqConst.AUTHORIZATION).replace("Basic ", "");
         String[] userKey = Base64Service.decodeLogin(login);
         UserDetails userDetails = userRepository.findByEmail(userKey[0]);
 
@@ -52,10 +54,10 @@ public class LoginController {
      * @param header to map header
      * @return the user
      */
-    @PostMapping("/login")
+    @PostMapping("/create")
     public String createUser(@RequestHeader Map<String, String> header) {
-        String email = header.get("email");
-        String password = Base64Service.decodeData(header.get("password"));
+        String email = header.get(ReqConst.EMAIL);
+        String password = Base64Service.decodeData(header.get(ReqConst.PASSWORD));
 
         UserDetails user = userRepository.findByEmail(email);
 
@@ -65,5 +67,10 @@ public class LoginController {
         
         
         return Base64Service.encodeData(id.toString());
+    }
+
+    @GetMapping("/all")
+    public List<UserDetails> getAll() {
+        return userRepository.findAll();
     }
 }

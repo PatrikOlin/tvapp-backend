@@ -54,7 +54,7 @@ public class Show {
         this.overview = show.getOverview();
         this.status = show.getStatus();
         if (show.getNext_episode_to_air() == null) {
-            this.nextAirDate = "n/a";
+            this.nextAirDate = "no info about next episode";
         } else {
             this.nextAirDate = show.getNext_episode_to_air().getAir_date();
         }

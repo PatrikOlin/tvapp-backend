@@ -8,7 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
-import static com.tvapp.Constants.*;
+import static com.tvapp.utils.constants.UrlConstants.*;
 public class MovieDBDAO {
 
     private RestTemplate restTemplate;

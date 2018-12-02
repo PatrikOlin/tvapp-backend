@@ -1,7 +1,7 @@
 package com.tvapp.rest;
 
 import com.sun.istack.internal.Nullable;
-import com.tvapp.Constants;
+import com.tvapp.utils.constants.UrlConstants;
 import com.tvapp.model.Token;
 import com.tvapp.repository.ApiRepository;
 import com.tvapp.thetvdb.TheTVDBDAO;
@@ -46,7 +46,7 @@ public class ApiController {
 
     @GetMapping("/refresh")
     public Token refreshToken() {
-        Token apiToken = apiRepository.findByName(Constants.THE_TV_DB);
+        Token apiToken = apiRepository.findByName(UrlConstants.THE_TV_DB);
         apiToken.setToken(theTVDBDAO.refreshToken(apiToken).getToken());
         apiToken.setCreationDate(new Date());
         apiRepository.save(apiToken);

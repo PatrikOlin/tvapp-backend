@@ -1,6 +1,6 @@
-package com.tvapp;
+package com.tvapp.utils.constants;
 
-public interface Constants {
+public interface UrlConstants {
     public static final String MOVIE_DB = "TheMovieDB";
     public static final String THE_TV_DB = "TheTvDB";
 

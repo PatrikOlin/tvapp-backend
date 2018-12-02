@@ -3,6 +3,7 @@ package com.tvapp.rest;
 import com.tvapp.model.UserDetails;
 import com.tvapp.repository.UserRepository;
 import com.tvapp.utils.UserResourceAssembler;
+import com.tvapp.utils.constants.ReqConst;
 import com.tvapp.utils.services.Base64Service;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -79,7 +80,7 @@ public class UserController {
      */
     @PutMapping
     public ResponseEntity updateUser(@RequestHeader Map<String, String> header) {
-        String userInfo = header.get("user_data");
+        String userInfo = header.get(ReqConst.USERDATA);
         String[] userData = Base64Service.decodeLogin(userInfo);
         UserDetails userDetails = userRepository.findOne(Integer.parseInt(userData[0]));
         userDetails.setPassword(userData[1]);
@@ -95,7 +96,7 @@ public class UserController {
      */
     @DeleteMapping
     public boolean delete(@RequestHeader Map<String, String> header) {
-        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get(ReqConst.USERID)));
         userRepository.delete(userId);
         return true;
     }

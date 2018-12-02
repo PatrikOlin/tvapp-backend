@@ -12,7 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 
-import static com.tvapp.Constants.*;
+import static com.tvapp.utils.constants.UrlConstants.*;
 
 public class TheTVDBDAO {
 

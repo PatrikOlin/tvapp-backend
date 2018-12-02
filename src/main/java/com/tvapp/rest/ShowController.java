@@ -12,6 +12,7 @@ import com.tvapp.thetvdb.TheTVDBDAO;
 import com.tvapp.thetvdb.domain.TVDBEpisode;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
 import com.tvapp.utils.ShowResourceAssembler;
+import com.tvapp.utils.constants.ReqConst;
 import com.tvapp.utils.services.Base64Service;
 import com.tvapp.utils.services.TokenService;
 import org.springframework.web.bind.annotation.*;
@@ -56,8 +57,11 @@ public class ShowController {
      */
     @GetMapping("/search")
     public List<Result> search(@RequestParam Map<String, String> param) {
-        String searchTerm = param.get("searchQuery");
-        return movieDBDAO.searchShows(searchTerm);
+        String searchTerm = param.get(ReqConst.SEARCH);
+        List<Result> resultList = movieDBDAO.searchShows(searchTerm);
+//        resultList.removeIf(result -> ((result.getName().isEmpty() || result.getName() == null) &&
+//                (result.getPoster_path().isEmpty() || result.getPoster_path() == null)));
+        return resultList;
     }
 
     /**
@@ -69,8 +73,8 @@ public class ShowController {
     @GetMapping("/details")
     public ShowDetailsDTO getShow(@RequestParam Map<String, String> param,
                                   @RequestHeader Map<String, String> header) {
-        int showId = Integer.parseInt(param.get("show_id"));
-        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
+        int showId = Integer.parseInt(param.get(ReqConst.SHOWID));
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get(ReqConst.USERID)));
         MovieDBShowDetails movieDB = movieDBDAO.ShowDetails(showId);
         ExternalSources sources = movieDBDAO.getExternalIds(showId);
         Token token = tokenService.checkExpirationDateForTVDBToken();
@@ -105,9 +109,9 @@ public class ShowController {
      */
     @GetMapping("/details/episode")
     public EpisodeDTO getDetailedEpisode(@RequestBody Map<String, Integer> body) {
-        int movieDBId = body.get("show_id");
-        int season = body.get("season");
-        int episode = body.get("episode");
+        int movieDBId = body.get(ReqConst.SHOWID);
+        int season = body.get(ReqConst.SEASON);
+        int episode = body.get(ReqConst.EPISODE);
         int tvDBId = movieDBDAO.getExternalIds(movieDBId).getTvdb_id();
 
         MovieDBEpisode movieDBEpisode = movieDBDAO.getEpisode(movieDBId, season, episode);

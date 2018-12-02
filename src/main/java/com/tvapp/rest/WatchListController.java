@@ -14,6 +14,7 @@ import com.tvapp.themoviedb.domain.ExternalSources;
 import com.tvapp.themoviedb.domain.MovieDBShowDetails;
 import com.tvapp.thetvdb.TheTVDBDAO;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
+import com.tvapp.utils.constants.ReqConst;
 import com.tvapp.utils.services.Base64Service;
 import com.tvapp.utils.services.TokenService;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +56,7 @@ public class WatchListController {
      */
     @GetMapping
     public List<Show> getWatchList(@RequestHeader Map<String, String> header) {
-        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get(ReqConst.USERID)));
         List<Show> shows = showRepository.findAllShowsByUserId(userId);
 
         for (Show show : shows) {
@@ -82,8 +83,8 @@ public class WatchListController {
     @PostMapping
     public Show addToWatchList(@RequestBody Map<String, Integer> body,
                                @RequestHeader Map<String, String> header) {
-        int showId = body.get("show_id");
-        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
+        int showId = body.get(ReqConst.SHOWID);
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get(ReqConst.USERID)));
         WatchList fav = null;
 
         Show show = showRepository.save(getShow(showId));
@@ -111,8 +112,8 @@ public class WatchListController {
     @DeleteMapping
     public void removeFromWatchList(@RequestParam Map<String, String> param,
                                     @RequestHeader Map<String, String> header) {
-        int showId = Integer.parseInt(param.get("show_id"));
-        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
+        int showId = Integer.parseInt(param.get(ReqConst.SHOWID));
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get(ReqConst.USERID)));
 
         WatchList watchList = watchListRepository.getWatchListByUserIdLikeAndShowIdLike(userId, showId);
         List<Episode> episodes = episodeRepository.findAllByFavoriteId(watchList.getId());
@@ -133,10 +134,10 @@ public class WatchListController {
      */
     @PostMapping("/episode")
     public void watchedEpisodeList(@RequestBody Map<String, Integer> body, @RequestHeader Map<String, String> header) {
-        int showId = body.get("show_id");
-        int season = body.get("season");
-        int episode = body.get("episode");
-        int userId = Integer.parseInt(Base64Service.decodeData(header.get("user_id")));
+        int showId = body.get(ReqConst.SHOWID);
+        int season = body.get(ReqConst.SEASON);
+        int episode = body.get(ReqConst.EPISODE);
+        int userId = Integer.parseInt(Base64Service.decodeData(header.get(ReqConst.USERID)));
 
         WatchList watchList = watchListRepository.getWatchListByUserIdLikeAndShowIdLike(userId, showId);
         Episode newEpisode = new Episode(watchList.getId(), season, episode);

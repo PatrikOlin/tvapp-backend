@@ -1,6 +1,6 @@
 package com.tvapp.utils.services;
 
-import com.tvapp.Constants;
+import com.tvapp.utils.constants.UrlConstants;
 import com.tvapp.model.Token;
 import com.tvapp.repository.ApiRepository;
 import com.tvapp.thetvdb.TheTVDBDAO;
@@ -23,7 +23,7 @@ public class TokenService {
      * @return the Token for TVDB
      */
     public Token checkExpirationDateForTVDBToken() {
-        Token apiToken = apiRepository.findByName(Constants.THE_TV_DB);
+        Token apiToken = apiRepository.findByName(UrlConstants.THE_TV_DB);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(apiToken.getCreationDate());
         calendar.add(Calendar.HOUR_OF_DAY, 24);
@@ -38,7 +38,7 @@ public class TokenService {
      * @return they apikey
      */
     public Token getApiKeyForMovieDB() {
-        return apiRepository.findByName(Constants.MOVIE_DB);
+        return apiRepository.findByName(UrlConstants.MOVIE_DB);
     }
 
     /**
