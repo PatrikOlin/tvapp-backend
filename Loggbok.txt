@@ -10,3 +10,17 @@ Vi har lagt upp projektet på Github och påbörjat REST API:et
 Har implementerat HATEOAS ( i alla fall på några av endpointsen..."
 Har börjat implementera basic authentication och BCrypt password-hantering i DB
 
+2018-11-15
+
+12:03
+Har ändrat mapp strukturen och ändra mappningen i repositories och lagt till base /api som bas uri
+för att kunna implementera swagger dokumentation.
+
+15.22
+Fixade dokumentation för user controller på swagger ui. Lite finlir kvar
+
+2018-11-23
+
+Idag har vi kommit fram hur sök modellen ska se ut och hur och vad för data vi ska aggregera 
+från 2 källor. Samt skapat massa pojos för hantering av sökresultat, serie detaljer, säsong och avsnitt.
+Samt några DTO. Några nya endpoints har tillkommigt samt en to-do lista.
