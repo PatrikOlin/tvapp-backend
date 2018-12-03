@@ -20,8 +20,6 @@ import com.tvapp.utils.services.TokenService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -107,7 +105,6 @@ public class WatchListController {
     }
 
     // TODO: Exception, swagger
-    // TODO: kolla över datum hantering, skickar nu i millisekunder.
     // TODO: Få upp skiten på servern.
 
     /**
@@ -140,6 +137,7 @@ public class WatchListController {
      * Add a watched episode to database.
      *
      * @param body to map key and value.
+     * @param header to map user_id
      */
     @PostMapping("/episode")
     public void watchedEpisodeList(@RequestBody Map<String, Integer> body, @RequestHeader Map<String, String> header) {
@@ -160,6 +158,12 @@ public class WatchListController {
         episodeRepository.save(newEpisode);
     }
 
+    /**
+     * private method to get a show
+     *
+     * @param showId to get external id from the show
+     * @return a showDTO object.
+     */
     private Show getShow(int showId) {
         Token token = tokenService.checkExpirationDateForTVDBToken();
         TVDBShowDetails tvDB;

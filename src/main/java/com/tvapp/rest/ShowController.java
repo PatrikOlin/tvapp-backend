@@ -32,20 +32,14 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @Api(description = "Operations pertaining shows in ShowTime")
 public class ShowController {
 
-    private final ShowRepository showRepository;
     private final WatchListRepository watchListRepository;
-    private final ShowResourceAssembler assembler;
     private MovieDBDAO movieDBDAO;
     private TheTVDBDAO theTVDBDAO;
     private TokenService tokenService;
 
-    ShowController(ShowRepository showRepository,
-                   WatchListRepository watchListRepository,
-                   ApiRepository apiRepository,
-                   ShowResourceAssembler assembler) {
-        this.showRepository = showRepository;
+    ShowController(WatchListRepository watchListRepository,
+                   ApiRepository apiRepository) {
         this.watchListRepository = watchListRepository;
-        this.assembler = assembler;
         this.tokenService = new TokenService(apiRepository);
         theTVDBDAO = new TheTVDBDAO();
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
@@ -63,7 +57,7 @@ public class ShowController {
     public List<Result> search(@RequestParam Map<String, String> param) {
         String searchTerm = param.get(ReqConst.SEARCH);
         List<Result> resultList = movieDBDAO.searchShows(searchTerm);
-        resultList.removeIf(result -> result.HalfOfInfoIsMissing());
+        resultList.removeIf(Result::HalfOfInfoIsMissing);
         return resultList;
     }
 
@@ -92,7 +86,7 @@ public class ShowController {
 
         ShowDetailsDTO showDetails = new ShowDetailsDTO(movieDB, tvDB, sources);
         int OnWatchList = watchListRepository.countByUserIdAndShowId(userId, showId);
-        showDetails.setOnWatchList(OnWatchList == 1 ? true : false);
+        showDetails.setOnWatchList(OnWatchList == 1);
 
         return showDetails;
     }
