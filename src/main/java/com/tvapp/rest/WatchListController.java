@@ -47,11 +47,10 @@ public class WatchListController {
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
-    // TODO: Sortera listan efter next episode air date?
     /**
      * Return users watchlist
      *
-     * @param header user_id
+     * @param header to map user_id
      * @return List of shows
      */
     @GetMapping
@@ -63,12 +62,19 @@ public class WatchListController {
             Show compareShow = getShow(show.getId());
             if (show.getId() == compareShow.getId()) {
                 if ((!show.getStatus().equalsIgnoreCase(compareShow.getStatus()) ||
-                        (!show.getNextAirDate().equalsIgnoreCase(compareShow.getNextAirDate())))) {
+                        (show.getNextAirDate() != compareShow.getNextAirDate()))) {
                     show = compareShow;
                     showRepository.save(show);
                 }
             }
         }
+
+        shows.sort((o1, o2) -> {
+            if (o1.getNextAirDate() == null || o2.getNextAirDate() == null)
+                return -1;
+
+            return o1.getNextAirDate().compareTo(o2.getNextAirDate());
+        });
 
         return shows;
     }
@@ -77,7 +83,7 @@ public class WatchListController {
      * Add show to watchlist in database
      *
      * @param body to map id
-     * @param header
+     * @param header to map user_id
      * @return a show
      */
     @PostMapping
@@ -98,7 +104,7 @@ public class WatchListController {
         return show;
     }
 
-    // TODO: Lägga till filter på /api (Exception, swagger)
+    // TODO: Exception, swagger
     // TODO: Få upp skiten på servern.
 
     /**
@@ -106,8 +112,8 @@ public class WatchListController {
      * linked to the favorite id. Checks also if unique show.
      * If its true then it delete it from shows also.
      *
-     * @param param
-     * @param header
+     * @param param to map show_id
+     * @param header to map user_id
      */
     @DeleteMapping
     public void removeFromWatchList(@RequestParam Map<String, String> param,
@@ -117,7 +123,7 @@ public class WatchListController {
 
         WatchList watchList = watchListRepository.getWatchListByUserIdLikeAndShowIdLike(userId, showId);
         List<Episode> episodes = episodeRepository.findAllByFavoriteId(watchList.getId());
-        episodes.forEach(episode -> episodeRepository.delete(episode));
+        episodeRepository.delete(episodes);
         if (watchListRepository.countByShowId(showId) == 1) {
             watchListRepository.delete(watchList);
             Show show = showRepository.findOne(showId);
@@ -131,6 +137,7 @@ public class WatchListController {
      * Add a watched episode to database.
      *
      * @param body to map key and value.
+     * @param header to map user_id
      */
     @PostMapping("/episode")
     public void watchedEpisodeList(@RequestBody Map<String, Integer> body, @RequestHeader Map<String, String> header) {
@@ -151,6 +158,12 @@ public class WatchListController {
         episodeRepository.save(newEpisode);
     }
 
+    /**
+     * private method to get a show
+     *
+     * @param showId to get external id from the show
+     * @return a showDTO object.
+     */
     private Show getShow(int showId) {
         Token token = tokenService.checkExpirationDateForTVDBToken();
         TVDBShowDetails tvDB;

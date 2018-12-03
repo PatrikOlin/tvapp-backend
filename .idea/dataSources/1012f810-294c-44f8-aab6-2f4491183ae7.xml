@@ -140,7 +140,7 @@
     </column>
     <column id="36" parent="7" name="next_air_date">
       <Position>6</Position>
-      <DataType>VARCHAR(50)|12s</DataType>
+      <DataType>DATE(10)|91s</DataType>
     </column>
     <index id="37" parent="7" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>

@@ -16,7 +16,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/login")
 public class LoginController {
-    
+
     private UserRepository userRepository;
 
     public LoginController(UserRepository userRepository) {
@@ -63,10 +63,10 @@ public class LoginController {
 
         if (user != null) throw new UserExistException();
 
-        Integer id = userRepository.save(new UserDetails(email, password)).getId();
-        
-        
-        return Base64Service.encodeData(id.toString());
+        int id = userRepository.save(new UserDetails(email, password)).getId();
+
+
+        return Base64Service.encodeData(Integer.toString(id));
     }
 
     @GetMapping("/all")

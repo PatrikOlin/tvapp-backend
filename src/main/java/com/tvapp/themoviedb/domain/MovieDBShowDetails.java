@@ -1,11 +1,12 @@
 package com.tvapp.themoviedb.domain;
 
+import java.util.Date;
 import java.util.List;
 
 public class MovieDBShowDetails {
     private String name;
     private int id;
-    private String first_air_date;
+    private Date first_air_date;
     private MovieDBEpisode last_episode_to_air;
     private MovieDBEpisode next_episode_to_air;
     private String overview;
@@ -24,11 +25,11 @@ public class MovieDBShowDetails {
         this.id = id;
     }
 
-    public String getFirst_air_date() {
+    public Date getFirst_air_date() {
         return first_air_date;
     }
 
-    public void setFirst_air_date(String first_air_date) {
+    public void setFirst_air_date(Date first_air_date) {
         this.first_air_date = first_air_date;
     }
 

@@ -1,5 +1,6 @@
 package com.tvapp.thetvdb.domain;
 
+import java.util.Date;
 import java.util.List;
 
 public class TVDBShowDetails {
@@ -9,7 +10,7 @@ public class TVDBShowDetails {
     private String banner;
     private String seriesId;
     private String status;
-    private String firstAired;
+    private Date firstAired;
     private String network;
     private String networkId;
     private String runtime;
@@ -78,11 +79,11 @@ public class TVDBShowDetails {
         this.status = status;
     }
 
-    public String getFirstAired() {
+    public Date getFirstAired() {
         return firstAired;
     }
 
-    public void setFirstAired(String firstAired) {
+    public void setFirstAired(Date firstAired) {
         this.firstAired = firstAired;
     }
 

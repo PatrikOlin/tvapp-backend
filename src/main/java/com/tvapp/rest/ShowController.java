@@ -15,6 +15,9 @@ import com.tvapp.utils.ShowResourceAssembler;
 import com.tvapp.utils.constants.ReqConst;
 import com.tvapp.utils.services.Base64Service;
 import com.tvapp.utils.services.TokenService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -26,39 +29,35 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/shows")
+@Api(description = "Operations pertaining shows in ShowTime")
 public class ShowController {
 
-    private final ShowRepository showRepository;
     private final WatchListRepository watchListRepository;
-    private final ShowResourceAssembler assembler;
     private MovieDBDAO movieDBDAO;
     private TheTVDBDAO theTVDBDAO;
     private TokenService tokenService;
 
-    ShowController(ShowRepository showRepository,
-                   WatchListRepository watchListRepository,
-                   ApiRepository apiRepository,
-                   ShowResourceAssembler assembler) {
-        this.showRepository = showRepository;
+    ShowController(WatchListRepository watchListRepository,
+                   ApiRepository apiRepository) {
         this.watchListRepository = watchListRepository;
-        this.assembler = assembler;
         this.tokenService = new TokenService(apiRepository);
         theTVDBDAO = new TheTVDBDAO();
         movieDBDAO = new MovieDBDAO(tokenService.getApiKeyForMovieDB().getApiKey());
     }
 
-    
+
     /**
      * Search for series
      *
      * @param param searchQuery
      * @return List of search result
      */
-    @GetMapping("/search")
+    @ApiOperation(value = "Search for a show", response = List.class)
+    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = "application/json")
     public List<Result> search(@RequestParam Map<String, String> param) {
         String searchTerm = param.get(ReqConst.SEARCH);
         List<Result> resultList = movieDBDAO.searchShows(searchTerm);
-        resultList.removeIf(result -> result.HalfOfInfoIsMissing());
+        resultList.removeIf(Result::HalfOfInfoIsMissing);
         return resultList;
     }
 
@@ -87,7 +86,7 @@ public class ShowController {
 
         ShowDetailsDTO showDetails = new ShowDetailsDTO(movieDB, tvDB, sources);
         int OnWatchList = watchListRepository.countByUserIdAndShowId(userId, showId);
-        showDetails.setOnWatchList(OnWatchList == 1 ? true : false);
+        showDetails.setOnWatchList(OnWatchList == 1);
 
         return showDetails;
     }
