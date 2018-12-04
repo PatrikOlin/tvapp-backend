@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry corsRegistry)  {
-                corsRegistry.addMapping("/api/**").allowedOrigins("https://showtime-front.herokuapp.com/");
+                corsRegistry.addMapping("/*").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*");
             }
         };
     }
