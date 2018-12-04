@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://showtime-front.herokuapp.com/")
 @RequestMapping("/login")
 public class LoginController {
 

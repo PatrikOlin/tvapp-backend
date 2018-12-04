@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "https://showtime-front.herokuapp.com/")
 @RequestMapping("/token")
 public class ApiController {
 

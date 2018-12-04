@@ -27,7 +27,7 @@ import java.util.Map;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://showtime-front.herokuapp.com/")
 @RequestMapping("/shows")
 @Api(description = "Operations pertaining shows in ShowTime")
 public class ShowController {
