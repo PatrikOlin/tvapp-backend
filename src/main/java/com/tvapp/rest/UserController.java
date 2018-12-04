@@ -28,7 +28,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 
 @RestController
-@CrossOrigin(origins = "https://showtime-front.herokuapp.com/")
+@CrossOrigin(origins = "*")
 @RequestMapping("/user")
 public class UserController {
 
