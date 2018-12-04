@@ -26,8 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
-                .and().cors()
+                .cors()
+                .and().authorizeRequests().anyRequest().authenticated()
                 .and().httpBasic()
                 .and().sessionManagement().disable();
     }
@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry corsRegistry)  {
-                corsRegistry.addMapping("/*").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*");
+                corsRegistry.addMapping("/**");
             }
         };
     }

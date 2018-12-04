@@ -7,8 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bfa1102-b0a8-498d-8934-0140c134a470" name="Default Changelist" comment="Ändrade så att details/episode tar params istället för body">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,21 +96,21 @@
         <counts>
           <entry key="cell" value="60" />
           <entry key="dummy" value="99" />
-          <entry key="java" value="9340" />
+          <entry key="java" value="9350" />
           <entry key="properties" value="52" />
           <entry key="sql" value="59" />
           <entry key="txt" value="967" />
-          <entry key="xml" value="615" />
+          <entry key="xml" value="637" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="9340" />
+          <entry key="JAVA" value="9350" />
           <entry key="PLAIN_TEXT" value="1066" />
           <entry key="Properties" value="52" />
           <entry key="SQL" value="31" />
           <entry key="Scratch" value="88" />
-          <entry key="XML" value="615" />
+          <entry key="XML" value="637" />
         </counts>
       </usages-collector>
     </session>
@@ -124,7 +130,13 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+              <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+              <folding>
+                <element signature="e#648#649#0" expanded="true" />
+                <element signature="e#700#701#0" expanded="true" />
+                <element signature="e#2272#2273#0" expanded="true" />
+                <element signature="e#2319#2320#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -133,7 +145,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -141,8 +153,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+            <state relative-caret-position="90">
+              <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -151,22 +163,22 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+              <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="195">
+              <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#605#606#0" expanded="true" />
-                <element signature="e#655#656#0" expanded="true" />
-                <element signature="e#706#707#0" expanded="true" />
-                <element signature="e#752#753#0" expanded="true" />
+                <element signature="e#549#550#0" expanded="true" />
+                <element signature="e#599#600#0" expanded="true" />
+                <element signature="e#650#651#0" expanded="true" />
+                <element signature="e#696#697#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -175,17 +187,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="453">
-              <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+            <state relative-caret-position="554">
+              <caret line="91" column="69" selection-start-line="91" selection-start-column="69" selection-end-line="91" selection-end-column="69" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
-              <caret line="39" column="82" selection-start-line="39" selection-start-column="82" selection-end-line="39" selection-end-column="82" />
+              <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -273,13 +285,13 @@
         <option value="$PROJECT_DIR$/Loggbok.txt" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/themoviedb/MovieDBDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/themoviedb/domain/Result.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/LoginController.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java" />
       </list>
     </option>
   </component>
@@ -385,7 +397,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543925441495" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543943145546" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -865,7 +877,7 @@
       <workItem from="1543256749805" duration="5479000" />
       <workItem from="1543344169518" duration="770000" />
       <workItem from="1543425000077" duration="47134000" />
-      <workItem from="1543922771190" duration="1444000" />
+      <workItem from="1543922771190" duration="3228000" />
     </task>
     <task id="LOCAL-00001" summary="Added Series-endpoint">
       <created>1541765935414</created>
@@ -939,7 +951,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137159000" />
+    <option name="totallyTimeSpent" value="138943000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1177" extended-state="6" />
@@ -953,10 +965,10 @@
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run Dashboard" order="0" sideWeight="0.4978701" visible="true" weight="0.25898618" />
+      <window_info anchor="bottom" id="Run Dashboard" order="0" sideWeight="0.4978701" weight="0.25898618" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.3299539" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49891067" weight="0.29308757" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49891067" visible="true" weight="0.29308757" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -977,8 +989,8 @@
       <window_info anchor="right" id="JSF" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="CDI" order="6" />
-      <window_info anchor="right" id="Maven Projects" order="7" weight="0.17199148" />
-      <window_info anchor="right" id="Database" order="8" visible="true" weight="0.16613418" />
+      <window_info anchor="right" id="Maven Projects" order="7" visible="true" weight="0.17199148" />
+      <window_info anchor="right" id="Database" order="8" weight="0.16613418" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Theme Preview" order="10" />
       <window_info anchor="right" id="Bean Validation" order="11" weight="0.32960597" />
@@ -1174,59 +1186,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="39" column="82" selection-start-line="39" selection-start-column="82" selection-end-line="39" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+        <state relative-caret-position="554">
+          <caret line="91" column="69" selection-start-line="91" selection-start-column="69" selection-end-line="91" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#549#550#0" expanded="true" />
+            <element signature="e#599#600#0" expanded="true" />
+            <element signature="e#650#651#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+          <folding>
+            <element signature="e#648#649#0" expanded="true" />
+            <element signature="e#700#701#0" expanded="true" />
+            <element signature="e#2272#2273#0" expanded="true" />
+            <element signature="e#2319#2320#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#605#606#0" expanded="true" />
-            <element signature="e#655#656#0" expanded="true" />
-            <element signature="e#706#707#0" expanded="true" />
-            <element signature="e#752#753#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
         </state>
       </provider>
     </entry>
