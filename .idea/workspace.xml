@@ -7,11 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bfa1102-b0a8-498d-8934-0140c134a470" name="Default Changelist" comment="Ändrade så att details/episode tar params istället för body">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ShowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,7 +61,7 @@
           <entry key="class" value="10" />
           <entry key="favorites" value="2" />
           <entry key="iml" value="2" />
-          <entry key="java" value="127" />
+          <entry key="java" value="128" />
           <entry key="properties" value="6" />
           <entry key="shows" value="5" />
           <entry key="sql" value="1" />
@@ -81,7 +77,7 @@
           <entry key="CLASS" value="10" />
           <entry key="Database Element" value="16" />
           <entry key="IDEA_MODULE" value="2" />
-          <entry key="JAVA" value="127" />
+          <entry key="JAVA" value="128" />
           <entry key="Manifest" value="3" />
           <entry key="PLAIN_TEXT" value="7" />
           <entry key="Properties" value="6" />
@@ -114,15 +110,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.13.RELEASE/spring-web-4.3.13.RELEASE.jar!/org/springframework/web/filter/CharacterEncodingFilter.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
-              <caret line="83" selection-start-line="83" selection-end-line="83" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="das://1012f810-294c-44f8-aab6-2f4491183ae7/schema/tvapp/table/user">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
@@ -168,11 +155,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="14" column="63" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
+            <state relative-caret-position="570">
+              <caret line="51" column="45" lean-forward="true" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="39" column="104" selection-start-line="39" selection-start-column="104" selection-end-line="39" selection-end-column="104" />
             </state>
           </provider>
         </entry>
@@ -267,7 +263,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/MainApp.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/model/Show.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/dao/ShowDAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java" />
         <option value="$PROJECT_DIR$/Loggbok.txt" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/themoviedb/MovieDBDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/themoviedb/domain/Result.java" />
@@ -276,6 +271,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/WatchListController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java" />
       </list>
     </option>
   </component>
@@ -356,6 +352,14 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="rest" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="tvapp-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tvapp-backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -373,7 +377,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543922941346" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543923892950" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -853,7 +857,7 @@
       <workItem from="1543256749805" duration="5479000" />
       <workItem from="1543344169518" duration="770000" />
       <workItem from="1543425000077" duration="47134000" />
-      <workItem from="1543922771190" duration="164000" />
+      <workItem from="1543922771190" duration="584000" />
     </task>
     <task id="LOCAL-00001" summary="Added Series-endpoint">
       <created>1541765935414</created>
@@ -927,7 +931,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135879000" />
+    <option name="totallyTimeSpent" value="136299000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1177" extended-state="6" />
@@ -1195,8 +1199,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/rest/ApiController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="14" column="63" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
+        <state relative-caret-position="570">
+          <caret line="51" column="45" lean-forward="true" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tvapp/utils/config/SecurityConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="39" column="104" selection-start-line="39" selection-start-column="104" selection-end-line="39" selection-end-column="104" />
         </state>
       </provider>
     </entry>
