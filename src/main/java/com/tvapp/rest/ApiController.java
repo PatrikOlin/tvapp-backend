@@ -1,6 +1,5 @@
 package com.tvapp.rest;
 
-import com.sun.istack.internal.Nullable;
 import com.tvapp.utils.constants.UrlConstants;
 import com.tvapp.model.Token;
 import com.tvapp.repository.ApiRepository;
@@ -31,15 +30,10 @@ public class ApiController {
     @PostMapping
     public Token create(@RequestBody Map<String, String> body) {
         String name = body.get("name");
-        @Nullable
         String token = body.get("token");
-        @Nullable
         String userName = body.get("user");
-        @Nullable
         String password = body.get("password");
-        @Nullable
         String apiKey = body.get("api_key");
-        @Nullable
         String userKey = body.get("user_key");
 
         return apiRepository.save(new Token(name, token, userName, password, apiKey, userKey));
