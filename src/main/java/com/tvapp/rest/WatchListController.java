@@ -111,9 +111,6 @@ public class WatchListController {
         return show;
     }
 
-    // TODO: Exception, swagger
-    // TODO: Få upp skiten på servern.
-
     /**
      * Removes a show from favorite and episodes
      * linked to the favorite id. Checks also if unique show.
