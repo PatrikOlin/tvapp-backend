@@ -4,7 +4,12 @@ import com.tvapp.dto.ShowDetailsDTO;
 
 import javax.persistence.*;
 import java.util.Date;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 @Entity
 @Table(name = "shows")
 public class Show {

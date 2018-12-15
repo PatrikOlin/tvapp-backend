@@ -9,6 +9,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 import static com.tvapp.utils.constants.UrlConstants.*;
+
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public class MovieDBDAO {
 
     private RestTemplate restTemplate;
@@ -21,6 +28,12 @@ public class MovieDBDAO {
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
     }
 
+    /**
+     * Method to restrieve search result from movieDB
+     *
+     * @param search parameter gained from a user
+     * @return a list of result
+     */
     public List<Result> searchShows(String search) {
         restTemplate = new RestTemplate();
 
@@ -39,10 +52,15 @@ public class MovieDBDAO {
                 }
         );
 
-//        HttpEntity<String> response = restTemplate.getForEntity(builder.build().encode().toUri(), String.class);
         return response.getBody().getResults();
     }
 
+    /**
+     * Retrieve more details of a show
+     *
+     * @param id of show
+     * @return details of show
+     */
     public MovieDBShowDetails ShowDetails(int id) {
         restTemplate = new RestTemplate();
 
@@ -62,6 +80,13 @@ public class MovieDBDAO {
         return response.getBody();
     }
 
+    /**
+     * Retrieve a season from movieDB
+     *
+     * @param id       of show
+     * @param seasonNo of show
+     * @return info of season
+     */
     public MovieDBSeason ShowSeason(String id, String seasonNo) {
         restTemplate = new RestTemplate();
 
@@ -81,6 +106,14 @@ public class MovieDBDAO {
         return response.getBody();
     }
 
+    /**
+     * Retrieve more info about a episode
+     *
+     * @param showId  of show
+     * @param season  number
+     * @param episode number
+     * @return a more detailed episode
+     */
     public MovieDBEpisode getEpisode(int showId, int season, int episode) {
         restTemplate = new RestTemplate();
 
@@ -100,6 +133,12 @@ public class MovieDBDAO {
         return response.getBody();
     }
 
+    /**
+     * Retrieve external Ids to map against TVDB
+     *
+     * @param showId id of show
+     * @return External Id
+     */
     public ExternalSources getExternalIds(int showId) {
         restTemplate = new RestTemplate();
 

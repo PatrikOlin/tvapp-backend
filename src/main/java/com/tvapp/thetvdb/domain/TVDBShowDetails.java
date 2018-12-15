@@ -2,7 +2,12 @@ package com.tvapp.thetvdb.domain;
 
 import java.util.Date;
 import java.util.List;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public class TVDBShowDetails {
     private int id;
     private String seriesName;

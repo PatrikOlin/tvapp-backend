@@ -1,7 +1,12 @@
 package com.tvapp.themoviedb.domain;
 
 import java.util.Date;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public class MovieDBEpisode {
     private Date air_date;
     private int episode_number;

@@ -14,6 +14,12 @@ import java.util.*;
 
 import static com.tvapp.utils.constants.UrlConstants.*;
 
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public class TheTVDBDAO {
 
     private RestTemplate restTemplate;
@@ -30,6 +36,7 @@ public class TheTVDBDAO {
 
     /**
      * Search for a show
+     *
      * @param search query
      * @return a List<> of Result
      */
@@ -41,7 +48,6 @@ public class TheTVDBDAO {
                 .queryParam("name", search);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
-
 
 
         ResponseEntity<MovieDBShowResult> response = restTemplate.exchange(
@@ -56,6 +62,14 @@ public class TheTVDBDAO {
         return response.getBody().getResults();
     }
 
+    /**
+     * Retrieve more details of a show from TvDB
+     *
+     * @param id    of show
+     * @param token to gain access to tvDB
+     * @return a Detailed show
+     * @throws HttpClientErrorException
+     */
     public TVDBShowDetails showDetails(int id, String token) throws HttpClientErrorException {
         setHeader(token);
         restTemplate = new RestTemplate();
@@ -75,6 +89,15 @@ public class TheTVDBDAO {
         return response.getBody().getData();
     }
 
+    /**
+     * Retrieve a episode from TvDB
+     *
+     * @param id      of Show
+     * @param season  number
+     * @param episode number
+     * @param token   to gain access to TvDB
+     * @return a episode
+     */
     public List<TVDBEpisode> getEpisode(int id, int season, int episode, String token) {
         setHeader(token);
         restTemplate = new RestTemplate();
@@ -95,7 +118,13 @@ public class TheTVDBDAO {
         return response.getBody().getData();
     }
 
-    public com.tvapp.model.Token refreshToken(com.tvapp.model.Token token) {
+    /**
+     * Refresh token if neccessary
+     *
+     * @param token to refresh
+     * @return the token
+     */
+    public Token refreshToken(Token token) {
         restTemplate = new RestTemplate();
 
         headers = new HttpHeaders();

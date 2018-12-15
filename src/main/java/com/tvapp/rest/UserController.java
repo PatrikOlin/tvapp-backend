@@ -19,8 +19,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
- * Rest Controller for user
- *
  * @author Patrik Holmkvist & Patrik Olin
  * Datum: 2018-12-03
  * Kurs: Java EE
@@ -33,46 +31,14 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class UserController {
 
     private final UserRepository userRepository;
-    private final UserResourceAssembler assembler;
 
     /**
      * Constructor
      *
      * @param userRepository
-     * @param assembler
      */
-    UserController(UserRepository userRepository, UserResourceAssembler assembler) {
+    UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.assembler = assembler;
-    }
-
-    /**
-     * Retrieving all users in database
-     *
-     * @return List of users
-     */
-    @GetMapping
-    public Resources<Resource<UserDetails>> all() {
-        List<Resource<UserDetails>> users = userRepository.findAll().stream()
-                .map(assembler::toResource)
-                .collect(Collectors.toList());
-
-        return new Resources<>(users,
-                linkTo(methodOn(UserController.class).all()).withSelfRel());
-    }
-
-    /**
-     * search for a user with email as param
-     *
-     * @param email contains email
-     * @return a user
-     */
-    @GetMapping("/{email}")
-    public Resource<UserDetails> one(@PathVariable String email) {
-
-        UserDetails userDetails = userRepository.findByEmail(email);
-
-        return assembler.toResource(userDetails);
     }
 
     /**

@@ -8,7 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.From;
 import java.util.List;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 @Repository
 public interface ShowRepository extends JpaRepository<Show, Integer> {
 

@@ -7,7 +7,12 @@ import com.tvapp.thetvdb.TheTVDBDAO;
 
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public class TokenService {
 
     private ApiRepository apiRepository;

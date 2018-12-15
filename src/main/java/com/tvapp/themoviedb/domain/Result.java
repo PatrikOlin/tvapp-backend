@@ -1,7 +1,12 @@
 package com.tvapp.themoviedb.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public class Result {
 
     @ApiModelProperty(notes = "Id of the show")

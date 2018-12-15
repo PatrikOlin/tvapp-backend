@@ -1,5 +1,10 @@
 package com.tvapp.utils.constants;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public interface ReqConst {
     public static final String USERID = "user_id";
     public static final String USERDATA = "user_data";

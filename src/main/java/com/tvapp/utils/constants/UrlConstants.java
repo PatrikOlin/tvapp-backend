@@ -1,5 +1,10 @@
 package com.tvapp.utils.constants;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public interface UrlConstants {
     public static final String MOVIE_DB = "TheMovieDB";
     public static final String THE_TV_DB = "TheTvDB";

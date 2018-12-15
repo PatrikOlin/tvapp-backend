@@ -9,9 +9,13 @@ import com.tvapp.utils.services.BCryptService;
 import com.tvapp.utils.services.Base64Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/login")
@@ -69,8 +73,4 @@ public class LoginController {
         return Base64Service.encodeData(Integer.toString(id));
     }
 
-    @GetMapping("/all")
-    public List<UserDetails> getAll() {
-        return userRepository.findAll();
-    }
 }

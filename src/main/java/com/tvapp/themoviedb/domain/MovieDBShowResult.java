@@ -1,7 +1,12 @@
 package com.tvapp.themoviedb.domain;
 
 import java.util.List;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public class MovieDBShowResult {
     private int page;
     private int total_result;

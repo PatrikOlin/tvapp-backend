@@ -1,7 +1,12 @@
 package com.tvapp.model;
 
 import javax.persistence.*;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 @Entity
 @Table(name = "watchlist")
 public class WatchList {

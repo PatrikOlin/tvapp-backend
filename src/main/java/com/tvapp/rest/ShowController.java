@@ -7,24 +7,26 @@ import com.tvapp.repository.ApiRepository;
 import com.tvapp.repository.WatchListRepository;
 import com.tvapp.themoviedb.MovieDBDAO;
 import com.tvapp.themoviedb.domain.*;
-import com.tvapp.repository.ShowRepository;
 import com.tvapp.thetvdb.TheTVDBDAO;
 import com.tvapp.thetvdb.domain.TVDBEpisode;
 import com.tvapp.thetvdb.domain.TVDBShowDetails;
-import com.tvapp.utils.ShowResourceAssembler;
 import com.tvapp.utils.constants.ReqConst;
 import com.tvapp.utils.services.Base64Service;
 import com.tvapp.utils.services.TokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 
 @RestController
 @CrossOrigin

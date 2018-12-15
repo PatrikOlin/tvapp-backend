@@ -1,5 +1,10 @@
 package com.tvapp.thetvdb.domain;
-
+/**
+ * @author Patrik Holmkvist & Patrik Olin
+ * Datum: 2018-12-03
+ * Kurs: Java EE
+ * Labb: Projekt
+ */
 public class DataShowDetails {
     private TVDBShowDetails data;
 
